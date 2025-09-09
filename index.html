@@ -110,13 +110,17 @@
             display: block;
             max-height: 150px;
             border-radius: 10px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out forwards;
         }
         .card:not(.qris) img {
             max-height: 225px;
+            animation-delay: 0.5s;
         }
         .card.qris img {
             max-width: 55%;
             margin-top: 2em;
+            animation-delay: 0.7s;
         }
         .transfer-details {
             display: grid;
@@ -252,6 +256,8 @@
             align-items: center;
             transition: transform 0.3s, box-shadow 0.3s;
             cursor: pointer;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1s forwards;
         }
         .whatsapp-float img {
             width: 40px;
@@ -423,7 +429,7 @@
                     <p>Scan kode QR untuk pembayaran<br><br>Kirim bukti ke WhatsApp</p>
                 </div>
                 <div class="button-group">
-                    <a href="#" class="btn" onclick="showImage('https://github.com/ridwanbudilaksono/wifi/blob/main/qrispay.jpg?raw=true')">Tampilkan</a>
+                    <a href="#" class="btn" onclick="showImage('https://github.com/ridwanbudilaksono/wifi/blob/main/qrisbayar.jpg?raw=true')">Tampilkan</a>
                     <a href="#" class="btn" onclick="redirectToWhatsApp('QRIS')">Konfirmasi</a>
                 </div>
             </div>
