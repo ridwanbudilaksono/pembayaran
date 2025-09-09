@@ -111,21 +111,26 @@
             max-height: 150px;
             border-radius: 10px;
         }
+        .card:not(.qris) img {
+            max-height: 225px;
+        }
         .card.qris img {
             max-width: 55%;
             margin-top: 2em;
         }
         .transfer-details {
             display: grid;
-            grid-template-columns: auto 1fr;
+            grid-template-columns: max-content 1fr;
             gap: 0.5em;
             text-align: left;
             max-width: 350px;
             margin: 0 auto 0.8em;
+            align-items: start;
         }
         .transfer-details .label {
             font-weight: 600;
             color: #1e3a8a;
+            text-align: right;
         }
         .transfer-details .value {
             text-align: left;
@@ -154,12 +159,11 @@
             text-decoration: none;
             border-radius: 50px;
             font-weight: bold;
-            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+            transition: box-shadow 0.3s, background 0.3s;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             white-space: nowrap;
         }
         .btn:hover {
-            transform: scale(1.15);
             box-shadow: 0 6px 20px rgba(0,0,0,0.3);
             background: linear-gradient(45deg, #3b82f6, #1e3a8a);
         }
@@ -188,6 +192,13 @@
         }
         #payment-steps li {
             margin-bottom: 0.8em;
+        }
+        #payment-steps .button-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5em;
+            margin-top: 1em;
         }
         .image-overlay {
             position: fixed;
@@ -299,6 +310,7 @@
             .card h3 { font-size: 1.5em; }
             .card p { font-size: 0.9em; }
             .card img { max-height: 120px; }
+            .card:not(.qris) img { max-height: 180px; }
             .card.qris img { max-width: 55%; margin-top: 1.5em; }
             .transfer-details { max-width: 300px; }
             .transfer-details .value { font-size: 0.9em; }
@@ -343,6 +355,7 @@
             .card h3 { font-size: 1.3em; }
             .card p { font-size: 0.8em; }
             .card img { max-height: 100px; }
+            .card:not(.qris) img { max-height: 150px; }
             .card.qris img { max-width: 55%; margin-top: 1.2em; }
             .transfer-details { max-width: 250px; }
             .transfer-details .value { font-size: 0.8em; }
@@ -394,7 +407,7 @@
                 <div class="transfer-details">
                     <span class="label">BCA :</span>
                     <span class="value">817-540-2043</span>
-                    <span class="label">A/N  :</span>
+                    <span class="label">A/N :</span>
                     <span class="value">RIDWAN BUDI LAKSONO</span>
                 </div>
                 <div class="button-group">
@@ -425,7 +438,10 @@
                 <li>Tunggu konfirmasi dari tim kami dalam waktu 1x24 jam.</li>
                 <li>Nikmati layanan internet tanpa gangguan!</li>
             </ol>
-            <a href="#" class="btn" onclick="redirectToWhatsApp()">Konfirmasi Pembayaran Sekarang</a>
+            <div class="button-group">
+                <a href="#" class="btn" onclick="redirectToWhatsApp()">Konfirmasi Pembayaran Sekarang</a>
+                <a href="https://ridwanbudilaksono.github.io/wifi/" class="btn">Halaman Utama</a>
+            </div>
         </section>
     </div>
     <div class="whatsapp-float" onclick="redirectToContactWhatsApp()">
@@ -489,5 +505,4 @@
         document.querySelector('footer p').textContent = `2025 Pusat WiFi Solo\nInternet Lancar dan Stabil`;
     </script>
 </body>
-
 </html>
