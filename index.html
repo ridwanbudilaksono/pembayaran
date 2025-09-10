@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Pembayaran Pusat WiFi Solo</title>
+    <link rel="icon" type="image/png" href="https://github.com/ridwanbudilaksono/wifi/blob/main/favicon.png?raw=true">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -92,16 +93,41 @@
             width: 100%;
             min-width: 250px;
             border: 1px solid #60a5fa;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s, box-shadow 0.4s, background 0.4s;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(59,130,246,0.3), transparent);
+            transition: transform 0.5s;
+        }
+        .card:hover::before {
+            transform: scale(1.5);
+        }
+        .card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.35);
+            background: linear-gradient(135deg, #f0f7ff, #ffffff);
         }
         .card h3 {
             color: #1e3a8a;
             font-size: 1.8em;
             margin-bottom: 0.8em;
             line-height: 1.2;
+            position: relative;
+            z-index: 1;
         }
         .card p {
             margin: 0.6em 0;
             font-size: 1em;
+            position: relative;
+            z-index: 1;
         }
         .card img {
             max-width: 100%;
@@ -112,6 +138,8 @@
             border-radius: 10px;
             opacity: 0;
             animation: fadeInUp 1s ease-out forwards;
+            position: relative;
+            z-index: 1;
         }
         .card:not(.qris):not(.cash) img {
             max-height: 225px;
@@ -137,6 +165,8 @@
             max-width: 350px;
             margin: 0 auto 0.8em;
             align-items: start;
+            position: relative;
+            z-index: 1;
         }
         .transfer-details .label {
             font-weight: 600;
@@ -149,6 +179,8 @@
         }
         .qris-details, .cash-details {
             margin-top: 2em;
+            position: relative;
+            z-index: 1;
         }
         .qris-details p, .cash-details p {
             margin: 0.6em 0;
@@ -161,6 +193,8 @@
             gap: 0.5em;
             flex-wrap: nowrap;
             margin-top: 2em;
+            position: relative;
+            z-index: 1;
         }
         .btn {
             display: inline-block;
@@ -426,9 +460,9 @@
                     <span class="value">RIDWAN BUDI LAKSONO</span>
                 </div>
                 <div class="button-group">
-                    <a href="#" class="btn" onclick="showImage('https://github.com/ridwanbudilaksono/wifi/blob/main/bcapay.jpg?raw=true')">Tampilkan</a>
-                    <a href="#" class="btn" onclick="copyAccountNumber()">Salin Rekening</a>
-                    <a href="#" class="btn" onclick="redirectToWhatsApp('Transfer')">Konfirmasi</a>
+                    <a href="javascript:void(0)" class="btn" onclick="showImage('https://github.com/ridwanbudilaksono/wifi/blob/main/bcapay.jpg?raw=true')">Tampilkan</a>
+                    <a href="javascript:void(0)" class="btn" onclick="copyAccountNumber()">Salin Rekening</a>
+                    <a href="javascript:void(0)" class="btn" onclick="redirectToWhatsApp('Transfer')">Konfirmasi</a>
                 </div>
             </div>
             <div class="card qris">
@@ -438,8 +472,8 @@
                     <p>Scan kode QR untuk pembayaran<br><br>Kirim bukti ke WhatsApp</p>
                 </div>
                 <div class="button-group">
-                    <a href="#" class="btn" onclick="showImage('https://github.com/ridwanbudilaksono/wifi/blob/main/qrisbayar.jpg?raw=true')">Tampilkan</a>
-                    <a href="#" class="btn" onclick="redirectToWhatsApp('QRIS')">Konfirmasi</a>
+                    <a href="javascript:void(0)" class="btn" onclick="showImage('https://github.com/ridwanbudilaksono/wifi/blob/main/qrisbayar.jpg?raw=true')">Tampilkan</a>
+                    <a href="javascript:void(0)" class="btn" onclick="redirectToWhatsApp('QRIS')">Konfirmasi</a>
                 </div>
             </div>
             <div class="card cash">
@@ -449,7 +483,7 @@
                     <p>Hubungi kami untuk pembayaran tunai<br><br>Kirim konfirmasi ke WhatsApp</p>
                 </div>
                 <div class="button-group">
-                    <a href="#" class="btn" onclick="redirectToWhatsApp('Cash')">Konfirmasi</a>
+                    <a href="javascript:void(0)" class="btn" onclick="redirectToWhatsApp('Cash')">Konfirmasi</a>
                 </div>
             </div>
         </section>
@@ -465,7 +499,7 @@
                 <li>Nikmati layanan internet tanpa gangguan!</li>
             </ol>
             <div class="button-group">
-                <a href="#" class="btn" onclick="redirectToWhatsApp()">Konfirmasi Pembayaran Sekarang</a>
+                <a href="javascript:void(0)" class="btn" onclick="redirectToWhatsApp()">Konfirmasi Pembayaran Sekarang</a>
                 <a href="https://ridwanbudilaksono.github.io/wifi/" class="btn">Halaman Utama</a>
             </div>
         </section>
