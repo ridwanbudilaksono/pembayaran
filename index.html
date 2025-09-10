@@ -79,7 +79,7 @@
         }
         .payment-methods {
             display: grid;
-            grid-template-columns: repeat(2, minmax(250px, auto));
+            grid-template-columns: repeat(3, minmax(250px, auto));
             gap: 0.8em;
             padding: 2em 0;
         }
@@ -113,7 +113,7 @@
             opacity: 0;
             animation: fadeInUp 1s ease-out forwards;
         }
-        .card:not(.qris) img {
+        .card:not(.qris):not(.cash) img {
             max-height: 225px;
             max-width: 58.5%;
             margin-bottom: 2.5em;
@@ -121,6 +121,11 @@
         }
         .card.qris img {
             max-width: 55%;
+            margin-top: 2em;
+            animation-delay: 0.7s;
+        }
+        .card.cash img {
+            max-width: 66%;
             margin-top: 2em;
             animation-delay: 0.7s;
         }
@@ -142,10 +147,10 @@
             text-align: left;
             white-space: nowrap;
         }
-        .qris-details {
+        .qris-details, .cash-details {
             margin-top: 2em;
         }
-        .qris-details p {
+        .qris-details p, .cash-details p {
             margin: 0.6em 0;
             font-size: 1em;
             line-height: 1.5;
@@ -318,11 +323,12 @@
             .card h3 { font-size: 1.5em; }
             .card p { font-size: 0.9em; }
             .card img { max-height: 120px; }
-            .card:not(.qris) img { max-height: 180px; max-width: 58.5%; margin-bottom: 2.5em; }
+            .card:not(.qris):not(.cash) img { max-height: 180px; max-width: 58.5%; margin-bottom: 2.5em; }
             .card.qris img { max-width: 55%; margin-top: 1.5em; }
+            .card.cash img { max-width: 66%; margin-top: 1.5em; }
             .transfer-details { max-width: 300px; }
             .transfer-details .value { font-size: 0.9em; }
-            .qris-details { margin-top: 1.5em; }
+            .qris-details, .cash-details { margin-top: 1.5em; }
             .button-group { margin-top: 1.5em; }
             .btn { padding: 10px 20px; font-size: 0.9em; }
             #payment-steps {
@@ -363,11 +369,12 @@
             .card h3 { font-size: 1.3em; }
             .card p { font-size: 0.8em; }
             .card img { max-height: 100px; }
-            .card:not(.qris) img { max-height: 150px; max-width: 58.5%; margin-bottom: 2.5em; }
+            .card:not(.qris):not(.cash) img { max-height: 150px; max-width: 58.5%; margin-bottom: 2.5em; }
             .card.qris img { max-width: 55%; margin-top: 1.2em; }
+            .card.cash img { max-width: 66%; margin-top: 1.2em; }
             .transfer-details { max-width: 250px; }
             .transfer-details .value { font-size: 0.8em; }
-            .qris-details { margin-top: 1.2em; }
+            .qris-details, .cash-details { margin-top: 1.2em; }
             .button-group { margin-top: 1.2em; }
             .btn { padding: 8px 15px; font-size: 0.8em; }
             #payment-steps {
@@ -435,14 +442,25 @@
                     <a href="#" class="btn" onclick="redirectToWhatsApp('QRIS')">Konfirmasi</a>
                 </div>
             </div>
+            <div class="card cash">
+                <h3>CASH</h3>
+                <img src="https://github.com/ridwanbudilaksono/wifi/blob/main/cash.png?raw=true" alt="Cash Logo">
+                <div class="cash-details">
+                    <p>Hubungi kami untuk pembayaran tunai<br><br>Kirim konfirmasi ke WhatsApp</p>
+                </div>
+                <div class="button-group">
+                    <a href="#" class="btn" onclick="redirectToWhatsApp('Cash')">Konfirmasi</a>
+                </div>
+            </div>
         </section>
         <section id="payment-steps">
             <h2>Cara Pembayaran</h2>
             <ol>
-                <li>Pilih metode pembayaran (Transfer atau QRIS).</li>
-                <li>Untuk Transfer: Gunakan nomor rekening BCA : 817-540-2043 (A/N : RIDWAN BUDI LAKSONO) atau salin nomor rekening dengan tombol "Salin Rekening".</li>
+                <li>Pilih metode pembayaran (Transfer, QRIS, atau Cash).</li>
+                <li>Untuk Transfer: Gunakan nomor rekening BCA: 817-540-2043 (A/N: RIDWAN BUDI LAKSONO) atau salin nomor rekening dengan tombol "Salin Rekening".</li>
                 <li>Untuk QRIS: Scan kode QR menggunakan tombol "Tampilkan".</li>
-                <li>Kirim bukti pembayaran melalui WhatsApp ke nomor 0857 7777 3541.</li>
+                <li>Untuk Cash: Hubungi kami melalui WhatsApp untuk detail pembayaran tunai.</li>
+                <li>Kirim bukti atau konfirmasi pembayaran melalui WhatsApp ke nomor 0857 7777 3541.</li>
                 <li>Tunggu konfirmasi dari tim kami dalam waktu 1x24 jam.</li>
                 <li>Nikmati layanan internet tanpa gangguan!</li>
             </ol>
