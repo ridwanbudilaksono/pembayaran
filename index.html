@@ -95,7 +95,7 @@
             border: 1px solid #60a5fa;
             position: relative;
             overflow: hidden;
-            transition: transform 0.4s, box-shadow 0.4s, background 0.4s;
+            transition: box-shadow 0.4s, background 0.4s;
         }
         .card::before {
             content: '';
@@ -111,7 +111,6 @@
             transform: scale(1.5);
         }
         .card:hover {
-            transform: translateY(-15px);
             box-shadow: 0 15px 50px rgba(0,0,0,0.35);
             background: linear-gradient(135deg, #f0f7ff, #ffffff);
         }
@@ -153,7 +152,7 @@
             animation-delay: 0.7s;
         }
         .card.cash img {
-            max-width: 107.25%;
+            max-width: 128.7%;
             margin-top: 2em;
             animation-delay: 0.7s;
         }
@@ -359,7 +358,7 @@
             .card img { max-height: 120px; }
             .card:not(.qris):not(.cash) img { max-height: 180px; max-width: 58.5%; margin-bottom: 2.5em; }
             .card.qris img { max-width: 55%; margin-top: 1.5em; }
-            .card.cash img { max-width: 107.25%; margin-top: 1.5em; }
+            .card.cash img { max-width: 128.7%; margin-top: 1.5em; }
             .transfer-details { max-width: 300px; }
             .transfer-details .value { font-size: 0.9em; }
             .qris-details, .cash-details { margin-top: 1.5em; }
@@ -405,7 +404,7 @@
             .card img { max-height: 100px; }
             .card:not(.qris):not(.cash) img { max-height: 150px; max-width: 58.5%; margin-bottom: 2.5em; }
             .card.qris img { max-width: 55%; margin-top: 1.2em; }
-            .card.cash img { max-width: 107.25%; margin-top: 1.2em; }
+            .card.cash img { max-width: 128.7%; margin-top: 1.2em; }
             .transfer-details { max-width: 250px; }
             .transfer-details .value { font-size: 0.8em; }
             .qris-details, .cash-details { margin-top: 1.2em; }
@@ -482,7 +481,7 @@
                 <div class="cash-details">
                     <p>Hubungi kami untuk pembayaran tunai<br><br>Kirim konfirmasi ke WhatsApp</p>
                 </div>
-                <div class="button-group">
+                <div class="button-group">                   
                     <a href="javascript:void(0)" class="btn" onclick="redirectToWhatsApp('Cash')">Konfirmasi</a>
                 </div>
             </div>
