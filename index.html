@@ -98,15 +98,20 @@
             overflow: hidden;
             transition: box-shadow 0.4s, background 0.4s;
             opacity: 0;
+            visibility: hidden;
+        }
+        .card.show-card {
+            opacity: 1;
+            visibility: visible;
             animation: fadeInUp 1s ease-out forwards;
         }
-        .payment-methods .card:nth-child(1) {
+        .payment-methods .card:nth-child(1).show-card {
             animation-delay: 0.2s;
         }
-        .payment-methods .card:nth-child(2) {
+        .payment-methods .card:nth-child(2).show-card {
             animation-delay: 0.4s;
         }
-        .payment-methods .card:nth-child(3) {
+        .payment-methods .card:nth-child(3).show-card {
             animation-delay: 0.6s;
         }
         .card::before {
@@ -352,7 +357,7 @@
         }
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateX(0); }
+            to { opacity: 1; transform: translateY(0); }
         }
         @keyframes subtlePulse {
             0% { opacity: 0.4; }
@@ -532,10 +537,11 @@
         <p>2025 Pusat WiFi Solo\nInternet Lancar dan Stabil</p>
     </footer>
     <script>
-        // Scroll to top on page load
+        // Scroll to top on page load and trigger header animations
         window.onload = function() {
             window.scrollTo(0, 0);
             triggerHeaderAnimations();
+            waitForImages();
         };
 
         // Function to trigger header animations
@@ -544,6 +550,59 @@
             document.querySelector('.part2').classList.add('animated');
             document.querySelector('header p').classList.add('animated');
             document.querySelector('.slogan').classList.add('animated');
+        }
+
+        // Function to wait for all card images to load before showing cards
+        function waitForImages() {
+            const cards = document.querySelectorAll('.payment-methods .card');
+            const images = document.querySelectorAll('.payment-methods .card img');
+            let loadedImages = 0;
+
+            if (images.length === 0) {
+                // If no images, show cards immediately
+                cards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.classList.add('show-card');
+                    }, index * 200); // Staggered delay: 0.2s, 0.4s, 0.6s
+                });
+                return;
+            }
+
+            images.forEach((img) => {
+                if (img.complete) {
+                    // Image is already cached/loaded
+                    loadedImages++;
+                    if (loadedImages === images.length) {
+                        cards.forEach((card, index) => {
+                            setTimeout(() => {
+                                card.classList.add('show-card');
+                            }, index * 200); // Staggered delay: 0.2s, 0.4s, 0.6s
+                        });
+                    }
+                } else {
+                    img.addEventListener('load', () => {
+                        loadedImages++;
+                        if (loadedImages === images.length) {
+                            cards.forEach((card, index) => {
+                                setTimeout(() => {
+                                    card.classList.add('show-card');
+                                }, index * 200); // Staggered delay: 0.2s, 0.4s, 0.6s
+                            });
+                        }
+                    });
+                    img.addEventListener('error', () => {
+                        // Handle image load error by counting it as loaded
+                        loadedImages++;
+                        if (loadedImages === images.length) {
+                            cards.forEach((card, index) => {
+                                setTimeout(() => {
+                                    card.classList.add('show-card');
+                                }, index * 200); // Staggered delay: 0.2s, 0.4s, 0.6s
+                            });
+                        }
+                    });
+                }
+            });
         }
 
         // Show full-screen image
