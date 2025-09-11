@@ -224,23 +224,20 @@
             text-decoration: none;
             border-radius: 50px;
             font-weight: bold;
-            transition: opacity 0.3s ease-out;
+            transition: opacity 0.3s ease-out, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             white-space: nowrap;
             text-align: center;
             outline: none;
             user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
         .btn:hover {
-            transform: none;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            background: linear-gradient(45deg, #1e3a8a, #3b82f6);
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
         }
         .btn.clicked {
-            animation: fadeOut 0.3s ease-out forwards;
-        }
-        .copy-btn {
-            transition: none;
+            animation: jumpOut 0.3s ease-in-out forwards;
         }
         #payment-steps {
             background: white;
@@ -279,56 +276,67 @@
             flex-wrap: nowrap;
             gap: 0.5em;
         }
-        .links-container .btn {
+        .links-container a {
             width: 194px;
+            display: inline-block;
             padding: 12px 0;
-            transition: opacity 0.3s ease-out;
+            background: linear-gradient(45deg, #1e3a8a, #3b82f6);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: opacity 0.3s ease-out, transform 0.3s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            white-space: nowrap;
+            text-align: center;
             outline: none;
             user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            animation: bounceIn 0.6s ease-out forwards;
         }
-        .links-container .btn:hover {
-            transform: none;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            background: linear-gradient(45deg, #1e3a8a, #3b82f6);
+        .links-container a:hover {
+            animation: pulse 0.8s infinite ease-in-out;
         }
-        .links-container .btn.clicked {
+        .links-container a.clicked {
             animation: fadeOut 0.3s ease-out forwards;
         }
         .links-container .gallery-btn {
             margin-right: auto;
             margin-left: 0;
+            animation-delay: 0.1s;
         }
         .links-container .home-btn {
             margin-left: auto;
             margin-right: auto;
+            animation-delay: 0.2s;
         }
         .links-container .guide-btn {
             margin-left: auto;
             margin-right: 0;
+            animation-delay: 0.3s;
         }
         .popup-notification {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.7);
             background: linear-gradient(45deg, #1e3a8a, #3b82f6);
             color: white;
-            padding: 1em 2em;
+            padding: 0.8em 1.5em;
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.3);
             display: flex;
             align-items: center;
             gap: 0.8em;
-            font-size: 1.1em;
+            font-size: 1em;
             font-weight: 600;
             text-shadow: 0 1px 2px rgba(0,0,0,0.2);
             z-index: 2000;
             opacity: 0;
             animation: popIn 0.3s ease-out forwards, fadeOut 0.3s ease-out 1s forwards;
+            white-space: nowrap;
+            transform: translate(-50%, -100%);
         }
         .popup-notification i {
             color: #ffffff;
-            font-size: 1.3em;
+            font-size: 1.2em;
         }
         .image-overlay {
             position: fixed;
@@ -380,23 +388,22 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.3s ease-out;
+            transition: opacity 0.3s ease-out, transform 0.3s ease-in-out;
             cursor: pointer;
             opacity: 0;
-            animation: fadeInUp 1s ease-out 1s forwards;
             outline: none;
             user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
         .whatsapp-float img {
             width: 40px;
             height: 40px;
         }
-        .whatsapp-float:hover {
-            transform: none;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        .whatsapp-float.show {
+            animation: bounceIn 0.6s ease-out forwards;
         }
         .whatsapp-float.clicked {
-            animation: fadeOut 0.3s ease-out forwards;
+            animation: jumpOut 0.3s ease-in-out forwards;
         }
         footer {
             background: linear-gradient(45deg, #1e3a8a, #3b82f6);
@@ -429,9 +436,24 @@
             from { opacity: 1; }
             to { opacity: 0; }
         }
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: translateY(20px) scale(0.9); }
+            60% { opacity: 1; transform: translateY(-10px) scale(1.05); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.07); }
+            100% { transform: scale(1); }
+        }
+        @keyframes jumpOut {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.07); }
+            100% { opacity: 1; transform: scale(1); }
+        }
         @keyframes popIn {
-            from { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
-            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            from { opacity: 0; transform: translate(-50%, -120%) scale(0.7); }
+            to { opacity: 1; transform: translate(-50%, -100%) scale(1); }
         }
         @keyframes subtlePulse {
             0% { opacity: 0.4; }
@@ -472,14 +494,14 @@
                 font-size: 1em;
                 padding-left: 1.5em;
             }
-            .links-container .btn {
+            .links-container a {
                 width: 155px;
                 padding: 10px 0;
                 font-size: 0.9em;
             }
             .popup-notification {
                 padding: 0.8em 1.5em;
-                font-size: 1em;
+                font-size: 0.9em;
             }
             .popup-notification i {
                 font-size: 1.1em;
@@ -530,14 +552,14 @@
                 font-size: 0.9em;
                 padding-left: 1.2em;
             }
-            .links-container .btn {
+            .links-container a {
                 width: 129px;
                 padding: 8px 0;
                 font-size: 0.8em;
             }
             .popup-notification {
                 padding: 0.6em 1.2em;
-                font-size: 0.9em;
+                font-size: 0.8em;
             }
             .popup-notification i {
                 font-size: 1em;
@@ -585,7 +607,7 @@
                 </div>
                 <div class="button-group">
                     <a href="javascript:void(0)" class="btn" onclick="showImage('https://github.com/ridwanbudilaksono/wifi/blob/main/bcapay.jpg?raw=true')">Tampilkan</a>
-                    <a href="javascript:void(0)" class="btn copy-btn" onclick="copyAccountNumber()">Salin Rekening</a>
+                    <a href="javascript:void(0)" class="btn copy-btn" onclick="copyAccountNumber(this, event)">Salin Rekening</a>
                     <a href="javascript:void(0)" class="btn" onclick="redirectToWhatsApp('Transfer')">Konfirmasi</a>
                 </div>
             </div>
@@ -625,9 +647,9 @@
         </section>
         <section class="links-section">
             <div class="links-container">
-                <a href="https://pusatwifisolo.github.io/galeri/" class="btn gallery-btn">Galeri</a>
-                <a href="https://pusatwifisolo.github.io/wifi/" class="btn home-btn">Halaman Utama</a>
-                <a href="https://pusatwifisolo.github.io/panduan/" class="btn guide-btn">Panduan Layanan</a>
+                <a href="https://pusatwifisolo.github.io/galeri/" class="gallery-btn">Galeri</a>
+                <a href="https://pusatwifisolo.github.io/wifi/" class="home-btn">Halaman Utama</a>
+                <a href="https://pusatwifisolo.github.io/panduan/" class="guide-btn">Panduan Layanan</a>
             </div>
         </section>
     </div>
@@ -643,6 +665,7 @@
             window.scrollTo(0, 0);
             triggerHeaderAnimations();
             waitForImages();
+            initWhatsAppFloatAnimation();
             addButtonClickAnimation();
         };
 
@@ -704,16 +727,54 @@
             });
         }
 
+        // WhatsApp float animation
+        function initWhatsAppFloatAnimation() {
+            const whatsappFloat = document.querySelector('.whatsapp-float');
+            const whatsappIcon = document.querySelector('.whatsapp-float img');
+
+            function showWhatsAppFloat() {
+                whatsappFloat.classList.add('show');
+            }
+
+            if (whatsappIcon.complete) {
+                showWhatsAppFloat();
+            } else {
+                whatsappIcon.addEventListener('load', showWhatsAppFloat);
+                whatsappIcon.addEventListener('error', showWhatsAppFloat);
+            }
+
+            setTimeout(showWhatsAppFloat, 5000);
+        }
+
         // Add click animation to buttons and WhatsApp float
         function addButtonClickAnimation() {
-            const buttons = document.querySelectorAll('.btn, .whatsapp-float');
-            buttons.forEach(button => {
+            const linkButtons = document.querySelectorAll('.links-container a');
+            const allButtons = document.querySelectorAll('.button-group .btn');
+            const whatsappFloat = document.querySelector('.whatsapp-float');
+
+            linkButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     button.classList.add('clicked');
                     setTimeout(() => {
                         button.classList.remove('clicked');
-                    }, 300); // Match fadeOut animation duration
+                    }, 300);
                 });
+            });
+
+            allButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    button.classList.add('clicked');
+                    setTimeout(() => {
+                        button.classList.remove('clicked');
+                    }, 300);
+                });
+            });
+
+            whatsappFloat.addEventListener('click', () => {
+                whatsappFloat.classList.add('clicked');
+                setTimeout(() => {
+                    whatsappFloat.classList.remove('clicked');
+                }, 300);
             });
         }
 
@@ -731,15 +792,25 @@
         }
 
         // Copy account number to clipboard and show popup
-        function copyAccountNumber() {
+        function copyAccountNumber(button, event) {
             navigator.clipboard.writeText('8175402043').then(() => {
                 const popup = document.createElement('div');
                 popup.className = 'popup-notification';
-                popup.innerHTML = '<i class="fas fa-check-circle"></i> Nomor rekening telah disalin';
+                popup.innerHTML = '<i class="fas fa-check-circle"></i> Nomor rekening disalin';
                 document.body.appendChild(popup);
+
+                const rect = button.getBoundingClientRect();
+                const scrollY = window.scrollY;
+                const scrollX = window.scrollX;
+                const buttonCenterX = rect.left + rect.width / 2;
+                const offsetY = 10;
+
+                popup.style.left = `${buttonCenterX + scrollX}px`;
+                popup.style.top = `${rect.top + scrollY - offsetY}px`;
+
                 setTimeout(() => {
                     popup.remove();
-                }, 1300); // 1s display + 0.3s fade-out
+                }, 1300);
             }).catch(err => {
                 console.error('Gagal menyalin nomor rekening:', err);
             });
@@ -753,7 +824,7 @@
             const whatsappUrl = `https://wa.me/6285777773541?text=${message}`;
             setTimeout(() => {
                 window.open(whatsappUrl, '_blank');
-            }, 300); // Delay to allow fade-out animation
+            }, 300);
         }
 
         // Redirect to WhatsApp for contact
@@ -762,7 +833,7 @@
             const whatsappUrl = `https://wa.me/6285777773541?text=${message}`;
             setTimeout(() => {
                 window.open(whatsappUrl, '_blank');
-            }, 300); // Delay to allow fade-out animation
+            }, 300);
         }
 
         // Dynamic year in footer
