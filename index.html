@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Pembayaran Pusat WiFi Solo</title>
-    <link rel="icon" type="image/png" href="https://github.com/pusatwifisolo/wifi/blob/main/favicon.png?raw=true">
+    <link rel="icon" type="image/png" href="https://github.com/ridwanbudilaksono/wifi/blob/main/favicon.png?raw=true">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -98,15 +98,20 @@
             overflow: hidden;
             transition: box-shadow 0.4s, background 0.4s;
             opacity: 0;
+            visibility: hidden;
+        }
+        .card.show-card {
+            opacity: 1;
+            visibility: visible;
             animation: fadeInUp 1s ease-out forwards;
         }
-        .payment-methods .card:nth-child(1) {
+        .payment-methods .card:nth-child(1).show-card {
             animation-delay: 0.2s;
         }
-        .payment-methods .card:nth-child(2) {
+        .payment-methods .card:nth-child(2).show-card {
             animation-delay: 0.4s;
         }
-        .payment-methods .card:nth-child(3) {
+        .payment-methods .card:nth-child(3).show-card {
             animation-delay: 0.6s;
         }
         .card::before {
@@ -213,26 +218,26 @@
         }
         .btn {
             display: inline-block;
-            padding: 10px 20px;
+            padding: 12px 25px;
             background: linear-gradient(45deg, #1e3a8a, #3b82f6);
             color: white;
             text-decoration: none;
             border-radius: 50px;
             font-weight: bold;
-            transition: box-shadow 0.3s, background 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             white-space: nowrap;
             text-align: center;
-            width: 240px;
         }
         .btn:hover {
+            transform: scale(1.15);
             box-shadow: 0 6px 20px rgba(0,0,0,0.3);
             background: linear-gradient(45deg, #3b82f6, #1e3a8a);
         }
         #payment-steps {
             background: white;
             border-radius: 20px;
-            padding: 1.2em;
+            padding: 1em;
             margin: 2.5em 1em;
             text-align: center;
             box-shadow: 0 8px 30px rgba(0,0,0,0.2);
@@ -255,14 +260,47 @@
         #payment-steps li {
             margin-bottom: 0.8em;
         }
-        #payment-steps .button-group {
+        .links-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1em 0;
+        }
+        .links-container {
             display: flex;
             justify-content: space-between;
             flex-wrap: nowrap;
-            align-items: center;
             gap: 0.5em;
-            margin-top: 1em;
-            max-width: 100%;
+        }
+        .links-container a {
+            width: 198px;
+            display: inline-block;
+            padding: 12px 0;
+            background: linear-gradient(45deg, #1e3a8a, #3b82f6);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            white-space: nowrap;
+            text-align: center;
+        }
+        .links-container .gallery-btn {
+            margin-right: auto;
+            margin-left: 0;
+        }
+        .links-container .home-btn {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .links-container .guide-btn {
+            margin-left: auto;
+            margin-right: 0;
+        }
+        .links-container a:hover {
+            transform: scale(1.15);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #3b82f6, #1e3a8a);
         }
         .image-overlay {
             position: fixed;
@@ -352,7 +390,7 @@
         }
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateX(0); }
+            to { opacity: 1; transform: translateY(0); }
         }
         @keyframes subtlePulse {
             0% { opacity: 0.4; }
@@ -384,14 +422,19 @@
             .transfer-details .value { font-size: 0.9em; }
             .qris-details, .cash-details { margin-top: 0.8em; }
             .button-group { margin-top: 0.8em; }
-            .btn { padding: 10px 20px; font-size: 0.9em; width: 180px; }
+            .btn { padding: 10px 20px; font-size: 0.9em; }
             #payment-steps {
                 margin: 2em 0.5em;
-                padding: 1.2em;
+                padding: 1em;
             }
             #payment-steps ol {
                 font-size: 1em;
                 padding-left: 1.5em;
+            }
+            .links-container a {
+                width: 158.4px;
+                padding: 10px 0;
+                font-size: 0.9em;
             }
             .image-overlay .close-btn { font-size: 1.725em; }
             .whatsapp-float {
@@ -431,13 +474,18 @@
             .transfer-details .value { font-size: 0.8em; }
             .qris-details, .cash-details { margin-top: 0.6em; }
             .button-group { margin-top: 0.6em; }
-            .btn { padding: 8px 15px; font-size: 0.8em; width: 160px; }
+            .btn { padding: 8px 15px; font-size: 0.8em; }
             #payment-steps {
                 padding: 1em;
             }
             #payment-steps ol {
                 font-size: 0.9em;
                 padding-left: 1.2em;
+            }
+            .links-container a {
+                width: 132px;
+                padding: 8px 0;
+                font-size: 0.8em;
             }
             .image-overlay .close-btn { font-size: 1.495em; }
             .whatsapp-float {
@@ -473,7 +521,7 @@
         <section class="payment-methods">
             <div class="card">
                 <h3>TRANSFER</h3>
-                <img src="https://github.com/pusatwifisolo/wifi/blob/main/bcalogofit.png?raw=true" alt="BCA Logo">
+                <img src="https://github.com/ridwanbudilaksono/wifi/blob/main/bcalogofit.png?raw=true" alt="BCA Logo">
                 <div class="transfer-details">
                     <span class="label">BCA :</span>
                     <span class="value">817-540-2043</span>
@@ -481,25 +529,25 @@
                     <span class="value">RIDWAN BUDI LAKSONO</span>
                 </div>
                 <div class="button-group">
-                    <a href="javascript:void(0)" class="btn" onclick="showImage('https://github.com/pusatwifisolo/wifi/blob/main/bcapay.jpg?raw=true')">Tampilkan</a>
+                    <a href="javascript:void(0)" class="btn" onclick="showImage('https://github.com/ridwanbudilaksono/wifi/blob/main/bcapay.jpg?raw=true')">Tampilkan</a>
                     <a href="javascript:void(0)" class="btn" onclick="copyAccountNumber()">Salin Rekening</a>
                     <a href="javascript:void(0)" class="btn" onclick="redirectToWhatsApp('Transfer')">Konfirmasi</a>
                 </div>
             </div>
             <div class="card qris">
                 <h3>QRIS</h3>
-                <img src="https://github.com/pusatwifisolo/wifi/blob/main/qrislogo.png?raw=true" alt="QRIS Logo">
+                <img src="https://github.com/ridwanbudilaksono/wifi/blob/main/qrislogo.png?raw=true" alt="QRIS Logo">
                 <div class="qris-details">
                     <p>Scan kode QR untuk pembayaran<br><br>Kirim bukti ke WhatsApp</p>
                 </div>
                 <div class="button-group">
-                    <a href="javascript:void(0)" class="btn" onclick="showImage('https://github.com/pusatwifisolo/wifi/blob/main/qrisbayar.jpg?raw=true')">Tampilkan</a>
+                    <a href="javascript:void(0)" class="btn" onclick="showImage('https://github.com/ridwanbudilaksono/wifi/blob/main/qrisbayar.jpg?raw=true')">Tampilkan</a>
                     <a href="javascript:void(0)" class="btn" onclick="redirectToWhatsApp('QRIS')">Konfirmasi</a>
                 </div>
             </div>
             <div class="card cash">
                 <h3>CASH</h3>
-                <img src="https://github.com/pusatwifisolo/wifi/blob/main/dompetlogonew.png?raw=true" alt="Cash Logo">
+                <img src="https://github.com/ridwanbudilaksono/wifi/blob/main/dompetlogonew.png?raw=true" alt="Cash Logo">
                 <div class="cash-details">
                     <p>Hubungi kami untuk pembayaran tunai<br><br>Kirim konfirmasi ke WhatsApp</p>
                 </div>
@@ -519,23 +567,27 @@
                 <li>Tunggu konfirmasi dari tim kami dalam waktu 1x24 jam.</li>
                 <li>Nikmati layanan internet tanpa gangguan!</li>
             </ol>
-            <div class="button-group">
-                <a href="https://pusatwifisolo.github.io/wifi/" class="btn">Halaman Utama</a>
-                <a href="javascript:void(0)" class="btn" onclick="redirectToWhatsApp()">Konfirmasi Pembayaran</a>
+        </section>
+        <section class="links-section">
+            <div class="links-container">
+                <a href="https://pusatwifisolo.github.io/galeri/" class="gallery-btn">Galeri</a>
+                <a href="https://pusatwifisolo.github.io/wifi/" class="home-btn">Halaman Utama</a>
+                <a href="https://pusatwifisolo.github.io/panduan/" class="guide-btn">Panduan Layanan</a>
             </div>
         </section>
     </div>
     <div class="whatsapp-float" onclick="redirectToContactWhatsApp()">
-        <img src="https://github.com/pusatwifisolo/wifi/blob/main/whatsapp.png?raw=true" alt="WhatsApp">
+        <img src="https://github.com/ridwanbudilaksono/wifi/blob/main/whatsapp.png?raw=true" alt="WhatsApp">
     </div>
     <footer>
         <p>2025 Pusat WiFi Solo\nInternet Lancar dan Stabil</p>
     </footer>
     <script>
-        // Scroll to top on page load
+        // Scroll to top on page load and trigger animations
         window.onload = function() {
             window.scrollTo(0, 0);
             triggerHeaderAnimations();
+            waitForImages();
         };
 
         // Function to trigger header animations
@@ -544,6 +596,59 @@
             document.querySelector('.part2').classList.add('animated');
             document.querySelector('header p').classList.add('animated');
             document.querySelector('.slogan').classList.add('animated');
+        }
+
+        // Function to wait for all card images to load before showing cards
+        function waitForImages() {
+            const cards = document.querySelectorAll('.payment-methods .card');
+            const images = document.querySelectorAll('.payment-methods .card img');
+            let loadedImages = 0;
+
+            if (images.length === 0) {
+                // If no images, show cards immediately
+                cards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.classList.add('show-card');
+                    }, index * 200); // Staggered delay: 0.2s, 0.4s, 0.6s
+                });
+                return;
+            }
+
+            images.forEach((img) => {
+                if (img.complete) {
+                    // Image is already cached/loaded
+                    loadedImages++;
+                    if (loadedImages === images.length) {
+                        cards.forEach((card, index) => {
+                            setTimeout(() => {
+                                card.classList.add('show-card');
+                            }, index * 200); // Staggered delay: 0.2s, 0.4s, 0.6s
+                        });
+                    }
+                } else {
+                    img.addEventListener('load', () => {
+                        loadedImages++;
+                        if (loadedImages === images.length) {
+                            cards.forEach((card, index) => {
+                                setTimeout(() => {
+                                    card.classList.add('show-card');
+                                }, index * 200); // Staggered delay: 0.2s, 0.4s, 0.6s
+                            });
+                        }
+                    });
+                    img.addEventListener('error', () => {
+                        // Handle image load error by counting it as loaded
+                        loadedImages++;
+                        if (loadedImages === images.length) {
+                            cards.forEach((card, index) => {
+                                setTimeout(() => {
+                                    card.classList.add('show-card');
+                                }, index * 200); // Staggered delay: 0.2s, 0.4s, 0.6s
+                            });
+                        }
+                    });
+                }
+            });
         }
 
         // Show full-screen image
@@ -587,5 +692,3 @@
     </script>
 </body>
 </html>
-
-
