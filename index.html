@@ -51,16 +51,16 @@
             opacity: 0;
         }
         header .part1.animated {
-            animation: slideInLeft 1s ease-out forwards;
+            animation: slideInLeft 0.65s ease-out forwards;
         }
         header .part2.animated {
-            animation: slideInLeft 1s ease-out 1.3s forwards;
+            animation: slideInLeft 0.65s ease-out 0.845s forwards;
         }
         header p.animated {
-            animation: slideInRight 1s ease-out 2.3s forwards;
+            animation: slideInRight 0.65s ease-out 1.495s forwards;
         }
         header .slogan.animated {
-            animation: slideInRight 1s ease-out 2.3s forwards;
+            animation: slideInRight 0.65s ease-out 1.495s forwards;
         }
         header p {
             font-size: 1.4em;
@@ -103,15 +103,28 @@
         .card.show-card {
             opacity: 1;
             visibility: visible;
+        }
+        .card img {
+            max-width: 100%;
+            height: auto;
+            margin: 0.5em auto;
+            display: block;
+            max-height: 150px;
+            border-radius: 10px;
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+        }
+        .card.show-card img {
             animation: fadeInUp 1s ease-out forwards;
         }
-        .payment-methods .card:nth-child(1).show-card {
+        .payment-methods .card:nth-child(1).show-card img {
             animation-delay: 0.2s;
         }
-        .payment-methods .card:nth-child(2).show-card {
+        .payment-methods .card:nth-child(2).show-card img {
             animation-delay: 0.4s;
         }
-        .payment-methods .card:nth-child(3).show-card {
+        .payment-methods .card:nth-child(3).show-card img {
             animation-delay: 0.6s;
         }
         .card::before {
@@ -145,33 +158,18 @@
             position: relative;
             z-index: 1;
         }
-        .card img {
-            max-width: 100%;
-            height: auto;
-            margin: 0.5em auto;
-            display: block;
-            max-height: 150px;
-            border-radius: 10px;
-            opacity: 0;
-            animation: fadeInUp 1s ease-out forwards;
-            position: relative;
-            z-index: 1;
-        }
         .card:not(.qris):not(.cash) img {
             max-height: 225px;
             max-width: 58.5%;
             margin-bottom: 2.5em;
-            animation-delay: 0.5s;
         }
         .card.qris img {
             max-width: 55%;
             margin-top: 2em;
-            animation-delay: 0.7s;
         }
         .card.cash img {
             max-width: 128.7%;
             margin-top: 2em;
-            animation-delay: 0.7s;
         }
         .transfer-details {
             display: grid;
@@ -660,14 +658,14 @@
         <p>2025 Pusat WiFi Solo\nInternet Lancar dan Stabil</p>
     </footer>
     <script>
-        // Scroll to top on page load and trigger animations
-        window.onload = function() {
-            window.scrollTo(0, 0);
+        // Trigger animations only after DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            window.scrollTo(0, 0); // Scroll to top
             triggerHeaderAnimations();
             waitForImages();
             initWhatsAppFloatAnimation();
             addButtonClickAnimation();
-        };
+        });
 
         // Function to trigger header animations
         function triggerHeaderAnimations() {
@@ -677,17 +675,15 @@
             document.querySelector('.slogan').classList.add('animated');
         }
 
-        // Function to wait for all card images to load before showing cards
+        // Function to wait for card images to load before showing cards
         function waitForImages() {
             const cards = document.querySelectorAll('.payment-methods .card');
             const images = document.querySelectorAll('.payment-methods .card img');
             let loadedImages = 0;
 
             if (images.length === 0) {
-                cards.forEach((card, index) => {
-                    setTimeout(() => {
-                        card.classList.add('show-card');
-                    }, index * 200);
+                cards.forEach((card) => {
+                    card.classList.add('show-card');
                 });
                 return;
             }
@@ -696,30 +692,24 @@
                 if (img.complete) {
                     loadedImages++;
                     if (loadedImages === images.length) {
-                        cards.forEach((card, index) => {
-                            setTimeout(() => {
-                                card.classList.add('show-card');
-                            }, index * 200);
+                        cards.forEach((card) => {
+                            card.classList.add('show-card');
                         });
                     }
                 } else {
                     img.addEventListener('load', () => {
                         loadedImages++;
                         if (loadedImages === images.length) {
-                            cards.forEach((card, index) => {
-                                setTimeout(() => {
-                                    card.classList.add('show-card');
-                                }, index * 200);
+                            cards.forEach((card) => {
+                                card.classList.add('show-card');
                             });
                         }
                     });
                     img.addEventListener('error', () => {
                         loadedImages++;
                         if (loadedImages === images.length) {
-                            cards.forEach((card, index) => {
-                                setTimeout(() => {
-                                    card.classList.add('show-card');
-                                }, index * 200);
+                            cards.forEach((card) => {
+                                card.classList.add('show-card');
                             });
                         }
                     });
@@ -778,17 +768,19 @@
             });
         }
 
-        // Show full-screen image
+        // Show full-screen image (loaded only when clicked)
         function showImage(imageUrl) {
             const overlay = document.getElementById('imageOverlay');
             const overlayImage = document.getElementById('overlayImage');
-            overlayImage.src = imageUrl;
+            overlayImage.src = imageUrl; // Set src only when clicked
             overlay.classList.add('show');
         }
 
         // Close full-screen image
         function closeImageOverlay() {
-            document.getElementById('imageOverlay').classList.remove('show');
+            const overlay = document.getElementById('imageOverlay');
+            overlay.classList.remove('show');
+            document.getElementById('overlayImage').src = ''; // Clear src to free memory
         }
 
         // Copy account number to clipboard and show popup
