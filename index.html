@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Pembayaran Pusat WiFi Solo</title>
     <link rel="icon" type="image/png" href="https://github.com/ridwanbudilaksono/wifi/blob/main/favicon.png?raw=true">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?cachebust=20250914">
     <style>
         * {
             margin: 0;
@@ -21,6 +21,162 @@
             min-height: 100vh;
             position: relative;
         }
+        .login-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            z-index: 4000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800"%3E%3Cfilter id="bb"%3E%3CfeGaussianBlur in="SourceGraphic" stdDeviation="20" /%3E%3C/filter%3E%3Cpath fill="%23ffffff22" d="M400 0C179.1 0 0 179.1 0 400s179.1 400 400 400 400-179.1 400-400S620.9 0 400 0zm0 720c-176.7 0-320-143.3-320-320s143.3-320 320-320 320 143.3 320 320-143.3 320-320 320z"/%3E%3Ccircle fill="%23ffffff44" cx="400" cy="400" r="300" filter="url(%23bb)"/%3E%3C/svg%3E');
+            background-size: cover;
+            opacity: 0.4;
+            animation: subtlePulse 5s infinite ease-in-out;
+        }
+        .login-form {
+            background: white;
+            border-radius: 20px;
+            padding: 2em;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .login-form h2 {
+            color: #1e3a8a;
+            font-size: 2em;
+            margin-bottom: 1em;
+        }
+        .login-form input {
+            width: 100%;
+            padding: 10px;
+            margin: 0.5em 0;
+            border: 1px solid #60a5fa;
+            border-radius: 10px;
+            font-size: 1em;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .login-form input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 5px rgba(59,130,246,0.5);
+        }
+        .login-form .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(45deg, #1e3a8a, #3b82f6);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-top: 1em;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            cursor: pointer;
+        }
+        .login-form .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+        .login-form .btn.clicked {
+            animation: jumpOut 0.3s ease-in-out forwards;
+        }
+        .error-message {
+            display: none;
+        }
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            z-index: 3000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+        .loading-screen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800"%3E%3Cfilter id="bb"%3E%3CfeGaussianBlur in="SourceGraphic" stdDeviation="20" /%3E%3C/filter%3E%3Cpath fill="%23ffffff22" d="M400 0C179.1 0 0 179.1 0 400s179.1 400 400 400 400-179.1 400-400S620.9 0 400 0zm0 720c-176.7 0-320-143.3-320-320s143.3-320 320-320 320 143.3 320 320-143.3 320-320 320z"/%3E%3Ccircle fill="%23ffffff44" cx="400" cy="400" r="300" filter="url(%23bb)"/%3E%3C/svg%3E');
+            background-size: cover;
+            opacity: 0.4;
+            animation: subtlePulse 5s infinite ease-in-out;
+        }
+        .ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px;
+            height: 150px;
+            background: transparent;
+            border: 3px solid #3c3c3c;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 150px;
+            font-family: sans-serif;
+            font-size: 20px;
+            color: #3b82f6;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px #3b82f6;
+            box-shadow: 0 0 20px rgba(0,0,0,.5);
+        }
+        .ring:before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            width: 100%;
+            height: 100%;
+            border: 3px solid transparent;
+            border-top: 3px solid #3b82f6;
+            border-right: 3px solid #3b82f6;
+            border-radius: 50%;
+            animation: animateC 2s linear infinite;
+        }
+        .ring span {
+            display: block;
+            position: absolute;
+            top: calc(50% - 2px);
+            left: 50%;
+            width: 50%;
+            height: 4px;
+            background: transparent;
+            transform-origin: left;
+            animation: animate 2s linear infinite;
+        }
+        .ring span:before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #3b82f6;
+            top: -6px;
+            right: -8px;
+            box-shadow: 0 0 20px #3b82f6;
+        }
         header {
             background: linear-gradient(135deg, #1e3a8a, #3b82f6);
             color: white;
@@ -29,6 +185,7 @@
             position: relative;
             overflow: hidden;
             box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            display: none;
         }
         header::before {
             content: '';
@@ -77,6 +234,7 @@
             margin: 0 auto;
             padding: 3em 1em;
             overflow: hidden;
+            display: none;
         }
         .payment-methods {
             display: grid;
@@ -326,7 +484,7 @@
             font-size: 1em;
             font-weight: 600;
             text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-            z-index: 2000;
+            z-index: 5000;
             opacity: 0;
             animation: popIn 0.3s ease-out forwards, fadeOut 0.3s ease-out 1s forwards;
             white-space: nowrap;
@@ -411,6 +569,7 @@
             position: relative;
             width: 100%;
             box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
+            display: none;
         }
         footer p {
             animation: fadeIn 2s ease-in;
@@ -428,6 +587,10 @@
         }
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
             to { opacity: 1; transform: translateY(0); }
         }
         @keyframes fadeOut {
@@ -458,7 +621,24 @@
             50% { opacity: 0.6; }
             100% { opacity: 0.4; }
         }
+        @keyframes animateC {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes animate {
+            0% { transform: rotate(45deg); }
+            100% { transform: rotate(405deg); }
+        }
         @media (max-width: 768px) {
+            .login-form {
+                max-width: 300px;
+                padding: 1.5em;
+            }
+            .login-form h2 { font-size: 1.5em; }
+            .login-form input { font-size: 0.9em; }
+            .login-form .btn { padding: 10px 20px; font-size: 0.9em; }
+            .popup-notification { font-size: 0.9em; padding: 0.8em 1.5em; }
+            .popup-notification i { font-size: 1.1em; }
             header { padding: 0.8925em 1em; }
             header h1 { font-size: 2em; }
             header p { font-size: 1.2em; }
@@ -497,13 +677,6 @@
                 padding: 10px 0;
                 font-size: 0.9em;
             }
-            .popup-notification {
-                padding: 0.8em 1.5em;
-                font-size: 0.9em;
-            }
-            .popup-notification i {
-                font-size: 1.1em;
-            }
             .image-overlay .close-btn { font-size: 1.725em; }
             .whatsapp-float {
                 width: 51px;
@@ -519,6 +692,15 @@
             footer p { font-size: 0.7em; }
         }
         @media (max-width: 480px) {
+            .login-form {
+                max-width: 250px;
+                padding: 1em;
+            }
+            .login-form h2 { font-size: 1.3em; }
+            .login-form input { font-size: 0.8em; }
+            .login-form .btn { padding: 8px 15px; font-size: 0.8em; }
+            .popup-notification { font-size: 0.8em; padding: 0.6em 1.2em; }
+            .popup-notification i { font-size: 1em; }
             header { padding: 0.595em 0.5em; }
             header h1 { font-size: 1.6em; }
             header p { font-size: 1em; }
@@ -555,13 +737,6 @@
                 padding: 8px 0;
                 font-size: 0.8em;
             }
-            .popup-notification {
-                padding: 0.6em 1.2em;
-                font-size: 0.8em;
-            }
-            .popup-notification i {
-                font-size: 1em;
-            }
             .image-overlay .close-btn { font-size: 1.495em; }
             .whatsapp-float {
                 width: 46px;
@@ -579,7 +754,19 @@
     </style>
 </head>
 <body>
-    <header>
+    <div class="login-container" id="loginContainer">
+        <div class="login-form">
+            <h2>Pusat WiFi Solo</h2>
+            <input type="text" id="customerId" placeholder="ID Pelanggan" maxlength="25" inputmode="numeric" onkeypress="handleEnterKey(event, 'password')">
+            <input type="password" id="password" placeholder="Password" maxlength="25" inputmode="numeric" onkeypress="handleEnterKey(event, 'login')">
+            <div class="btn" onclick="handleLogin()">Masuk</div>
+            <div id="errorMessage" class="error-message"></div>
+        </div>
+    </div>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="ring">Loading<span></span></div>
+    </div>
+    <header id="mainHeader">
         <h1>
             <span class="part1">Pembayaran</span>
             <br>
@@ -592,7 +779,7 @@
         <span class="close-btn" onclick="closeImageOverlay()">&times;</span>
         <img id="overlayImage" src="" alt="Payment Image">
     </div>
-    <div class="container">
+    <div class="container" id="mainContainer">
         <section class="payment-methods">
             <div class="card">
                 <h3>TRANSFER</h3>
@@ -651,23 +838,106 @@
             </div>
         </section>
     </div>
-    <div class="whatsapp-float" onclick="redirectToContactWhatsApp()">
+    <div class="whatsapp-float" id="whatsappFloat" onclick="redirectToContactWhatsApp()">
         <img src="https://github.com/ridwanbudilaksono/wifi/blob/main/whatsapp.png?raw=true" alt="WhatsApp">
     </div>
-    <footer>
+    <footer id="mainFooter">
         <p>2025 Pusat WiFi Solo\nInternet Lancar dan Stabil</p>
     </footer>
     <script>
-        // Trigger animations only after DOM is fully loaded
+        // Clear inputs on page load/refresh
         document.addEventListener('DOMContentLoaded', function() {
+            clearInputsOnLoad();
+        });
+
+        function clearInputsOnLoad() {
+            document.getElementById('customerId').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        // Handle Enter key presses
+        function handleEnterKey(event, nextAction) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                if (nextAction === 'password') {
+                    document.getElementById('password').focus();
+                } else if (nextAction === 'login') {
+                    handleLogin();
+                }
+            }
+        }
+
+        // Handle login form submission
+        function handleLogin() {
+            const customerId = document.getElementById('customerId').value;
+            const password = document.getElementById('password').value;
+            const loginButton = document.querySelector('.login-form .btn');
+
+            // Add click animation
+            loginButton.classList.add('clicked');
+            setTimeout(() => {
+                loginButton.classList.remove('clicked');
+            }, 300);
+
+            // Validate input
+            const isNumeric = /^\d{8}$/;
+            if (customerId === '' || password === '' || !isNumeric.test(customerId) || !isNumeric.test(password)) {
+                try {
+                    const popup = document.createElement('div');
+                    popup.className = 'popup-notification';
+                    // Fallback if Font Awesome fails to load
+                    popup.innerHTML = document.createElement('i').className 
+                        ? '<i class="fas fa-exclamation-circle"></i> ID pelanggan tidak ditemukan atau password salah. Periksa kembali.'
+                        : 'ID pelanggan tidak ditemukan atau password salah. Periksa kembali.';
+                    document.body.appendChild(popup);
+
+                    const rect = loginButton.getBoundingClientRect();
+                    const scrollY = window.scrollY;
+                    const scrollX = window.scrollX;
+                    const buttonCenterX = rect.left + rect.width / 2;
+                    const offsetY = 270;
+                    // Clamp position to stay within viewport
+                    const maxX = window.innerWidth - 100; // Approximate popup width
+                    const maxY = window.innerHeight - 50; // Approximate popup height
+                    const clampedX = Math.min(Math.max(buttonCenterX + scrollX, 50), maxX);
+                    const clampedY = Math.min(Math.max(rect.top + scrollY - offsetY, 50), maxY);
+
+                    popup.style.left = `${clampedX}px`;
+                    popup.style.top = `${clampedY}px`;
+
+                    setTimeout(() => {
+                        popup.remove();
+                    }, 2800);
+                } catch (err) {
+                    console.error('Failed to show popup:', err);
+                }
+                return;
+            }
+
+            // On successful login, hide login container and show loading screen
+            const loginContainer = document.getElementById('loginContainer');
+            const loadingScreen = document.getElementById('loadingScreen');
+            loginContainer.style.animation = 'fadeOut 0.3s ease-out forwards';
+            setTimeout(() => {
+                loginContainer.style.display = 'none';
+                loadingScreen.style.display = 'flex';
+                initializePaymentPage();
+            }, 300);
+        }
+
+        // Initialize payment page after login
+        function initializePaymentPage() {
+            document.getElementById('mainHeader').style.display = 'block';
+            document.getElementById('mainContainer').style.display = 'block';
+            document.getElementById('mainFooter').style.display = 'block';
             window.scrollTo(0, 0); // Scroll to top
             triggerHeaderAnimations();
             waitForImages();
             initWhatsAppFloatAnimation();
             addButtonClickAnimation();
-        });
+        }
 
-        // Function to trigger header animations
+        // Trigger header animations
         function triggerHeaderAnimations() {
             document.querySelector('.part1').classList.add('animated');
             document.querySelector('.part2').classList.add('animated');
@@ -675,13 +945,15 @@
             document.querySelector('.slogan').classList.add('animated');
         }
 
-        // Function to wait for card images to load before showing cards
+        // Function to wait for card images to load before showing cards and hiding loading screen
         function waitForImages() {
+            const loadingScreen = document.getElementById('loadingScreen');
             const cards = document.querySelectorAll('.payment-methods .card');
             const images = document.querySelectorAll('.payment-methods .card img');
             let loadedImages = 0;
 
             if (images.length === 0) {
+                loadingScreen.style.display = 'none';
                 cards.forEach((card) => {
                     card.classList.add('show-card');
                 });
@@ -692,6 +964,7 @@
                 if (img.complete) {
                     loadedImages++;
                     if (loadedImages === images.length) {
+                        loadingScreen.style.display = 'none';
                         cards.forEach((card) => {
                             card.classList.add('show-card');
                         });
@@ -700,6 +973,7 @@
                     img.addEventListener('load', () => {
                         loadedImages++;
                         if (loadedImages === images.length) {
+                            loadingScreen.style.display = 'none';
                             cards.forEach((card) => {
                                 card.classList.add('show-card');
                             });
@@ -708,6 +982,7 @@
                     img.addEventListener('error', () => {
                         loadedImages++;
                         if (loadedImages === images.length) {
+                            loadingScreen.style.display = 'none';
                             cards.forEach((card) => {
                                 card.classList.add('show-card');
                             });
@@ -719,7 +994,7 @@
 
         // WhatsApp float animation
         function initWhatsAppFloatAnimation() {
-            const whatsappFloat = document.querySelector('.whatsapp-float');
+            const whatsappFloat = document.getElementById('whatsappFloat');
             const whatsappIcon = document.querySelector('.whatsapp-float img');
 
             function showWhatsAppFloat() {
@@ -740,7 +1015,7 @@
         function addButtonClickAnimation() {
             const linkButtons = document.querySelectorAll('.links-container a');
             const allButtons = document.querySelectorAll('.button-group .btn');
-            const whatsappFloat = document.querySelector('.whatsapp-float');
+            const whatsappFloat = document.getElementById('whatsappFloat');
 
             linkButtons.forEach(button => {
                 button.addEventListener('click', () => {
@@ -788,7 +1063,9 @@
             navigator.clipboard.writeText('8175402043').then(() => {
                 const popup = document.createElement('div');
                 popup.className = 'popup-notification';
-                popup.innerHTML = '<i class="fas fa-check-circle"></i> Nomor rekening disalin';
+                popup.innerHTML = document.createElement('i').className 
+                    ? '<i class="fas fa-check-circle"></i> Nomor rekening disalin'
+                    : '✔ Nomor rekening disalin';
                 document.body.appendChild(popup);
 
                 const rect = button.getBoundingClientRect();
