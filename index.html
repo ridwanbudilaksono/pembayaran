@@ -533,9 +533,7 @@
             opacity: 0;
             animation: popIn 0.3s ease-out forwards, fadeOut 0.3s ease-out 2.2s forwards;
             max-width: min(90vw, 500px);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            white-space: normal;
             line-height: 1.4;
             text-align: center;
             transform: translate(-50%, -100%);
@@ -995,19 +993,19 @@
                 try {
                     const popup = document.createElement('div');
                     popup.className = 'popup-notification';
-                    popup.innerHTML = 'ID pelanggan tidak ditemukan atau password salah. Periksa kembali.';
+                    popup.innerHTML = 'ID pelanggan tidak ditemukan atau password salah.<br>Periksa kembali.';
                     document.body.appendChild(popup);
 
                     const rect = loginForm.getBoundingClientRect();
                     const scrollY = window.scrollY;
                     const scrollX = window.scrollX;
                     const buttonCenterX = rect.left + rect.width / 2;
-                    const popupHeight = 50; // Approximate popup height
-                    const offsetY = 10;
+                    const popupHeight = 80; // Increased for two lines and padding
+                    const offsetY = 20;
                     const maxX = window.innerWidth - 100; // Approximate popup width
                     const maxY = window.innerHeight - popupHeight;
                     const clampedX = Math.min(Math.max(buttonCenterX + scrollX, 50), maxX);
-                    const clampedY = Math.min(Math.max(rect.top + scrollY - popupHeight - offsetY, 50), maxY);
+                    const clampedY = Math.min(Math.max(rect.top + scrollY - popupHeight - offsetY, 80), maxY);
 
                     popup.style.left = `${clampedX}px`;
                     popup.style.top = `${clampedY}px`;
