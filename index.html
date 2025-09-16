@@ -207,7 +207,7 @@
         }
         
         .hero .container {
-            padding: 200px 1rem 0;
+            padding: 200px 2rem 0;
             text-align: center;
             max-width: 1200px;
         }
@@ -405,7 +405,12 @@
                 min-height: 100vh;
             }
             .hero .container {
-                padding: 150px 1rem 0;
+                padding: 0 1rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
             }
             .payment-methods {
                 margin-top: 180px;
@@ -461,7 +466,12 @@
         
         @media (max-width: 767px) {
             .hero .container {
-                padding: 100px 1rem 0;
+                padding: 0 1rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
             }
             .hero h1 {
                 font-size: 2.5rem;
@@ -521,7 +531,12 @@
         
         @media (max-width: 480px) {
             .hero .container {
-                padding: 80px 0.75rem 0;
+                padding: 0 0.75rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
             }
             .hero h1 {
                 font-size: 2.25rem;
@@ -602,8 +617,8 @@
         }
         
         @keyframes popIn {
-            from { opacity: 0; transform: translate(-50%, -120%) scale(0.7); }
-            to { opacity: 1; transform: translate(-50%, -100%) scale(1); }
+            from { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
+            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
         }
         
         @keyframes fadeOut {
@@ -624,17 +639,16 @@
 </head>
 <body>
     <header class="bg-white shadow-md fixed w-full z-50">
-        <div class="container mx-auto max-w-1200px px-4 py-4 flex justify-between items-center">
+        <div class="container mx-auto max-width-1200px px-4 py-4 flex justify-between items-center">
             <div class="flex items-center">
                 <img src="https://github.com/pusatwifisolo/wifi/blob/main/logopwslow.png?raw=true" alt="Logo" class="w-12 h-12 mr-3">
                 <span class="text-2xl font-bold text-gray-800">Pusat WiFi <span class="text-blue-600">Solo</span></span>
             </div>
             <nav class="hidden md:flex space-x-10">
                 <a href="#home" class="text-gray-600 hover:text-blue-600 font-medium no-highlight">Beranda</a>
-                <a href="#about" class="text-gray-600 hover:text-blue-600 font-medium no-highlight">Tentang</a>
-                <a href="#services" class="text-gray-600 hover:text-blue-600 font-medium no-highlight">Layanan</a>
-                <a href="#pricing" class="text-gray-600 hover:text-blue-600 font-medium no-highlight">Harga</a>
-                <a href="#contact" class="text-gray-600 hover:text-blue-600 font-medium no-highlight">Kontak</a>
+                <a href="#about" class="text-gray-600 hover:text-blue-600 font-medium no-highlight">Panduan Layanan</a>
+                <a href="#pricing" class="text-gray-600 hover:text-blue-600 font-medium no-highlight">Pembayaran</a>
+                <a href="#contact" class="text-gray-600 hover:text-blue-600 font-medium no-highlight">Galeri</a>
             </nav>
             <div class="md:hidden">
                 <button id="menu-toggle" class="text-gray-600 no-highlight">
@@ -644,10 +658,9 @@
         </div>
         <div id="mobile-menu" class="hidden md:hidden bg-white py-4 px-4">
             <a href="#home" class="block py-2 text-gray-600 hover:text-blue-600 no-highlight">Beranda</a>
-            <a href="#about" class="block py-2 text-gray-600 hover:text-blue-600 no-highlight">Tentang</a>
-            <a href="#services" class="block py-2 text-gray-600 hover:text-blue-600 no-highlight">Layanan</a>
-            <a href="#pricing" class="block py-2 text-gray-600 hover:text-blue-600 no-highlight">Harga</a>
-            <a href="#contact" class="block py-2 text-gray-600 hover:text-blue-600 no-highlight">Kontak</a>
+            <a href="#about" class="block py-2 text-gray-600 hover:text-blue-600 no-highlight">Panduan Layanan</a>
+            <a href="#pricing" class="block py-2 text-gray-600 hover:text-blue-600 no-highlight">Pembayaran</a>
+            <a href="#contact" class="block py-2 text-gray-600 hover:text-blue-600 no-highlight">Galeri</a>
         </div>
     </header>
 
@@ -665,15 +678,15 @@
     </div>
 
     <section class="hero" id="mainContainer" style="display: none;">
-        <div class="container mx-auto max-w-1200px px-4 text-center">
+        <div class="container mx-auto max-width-1200px px-4 text-center">
             <h1 class="text-4xl md:text-6xl font-bold mb-4">Pembayaran</h1>
             <h2 class="text-2xl md:text-3xl font-bold mb-4">Pusat WiFi Solo</h2>
-            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Lunas Lebih Cepat, Internet Lebih Lancar</p>
-            <p class="text-lg md:text-xl mb-12 italic max-w-3xl mx-auto">Proses Mudah, Aman, dan Terpercaya</p>
+            <p class="text-xl md:text-2xl mb-8 max-width-3xl mx-auto">Lunas Lebih Cepat, Internet Lebih Lancar</p>
+            <p class="text-lg md:text-xl mb-12 italic max-width-3xl mx-auto">Proses Mudah, Aman, dan Terpercaya</p>
         </div>
     </section>
 
-    <div class="container mx-auto max-w-1200px px-4">
+    <div class="container mx-auto max-width-1200px px-4">
         <section class="payment-methods">
             <div class="card p-4 md:p-6 text-center">
                 <h3 class="text-lg md:text-2xl font-bold mb-4">TRANSFER</h3>
@@ -717,7 +730,7 @@
 
         <section id="payment-steps" class="bg-white p-6 rounded-xl shadow-md text-center">
             <h2 class="text-2xl md:text-3xl font-bold mb-4 section-title mx-auto">Cara Pembayaran</h2>
-            <ul class="text-left max-w-2xl mx-auto text-sm md:text-base space-y-3">
+            <ul class="text-left max-width-2xl mx-auto text-sm md:text-base space-y-3">
                 <li class="flex items-start">
                     <i class="fas fa-user-plus text-blue-600 mr-4"></i>
                     <span>Pilih metode pembayaran (Transfer, QRIS, atau Cash).</span>
@@ -760,7 +773,7 @@
     </div>
 
     <footer class="bg-gray-800 text-white py-12">
-        <div class="container mx-auto max-w-1200px px-4 pt-12">
+        <div class="container mx-auto max-width-1200px px-4 pt-12">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
                     <div class="flex items-center mb-6">
@@ -770,9 +783,9 @@
                     <p class="text-gray-400">Internet Lancar dan Stabil untuk rumah dan bisnis.</p>
                 </div>
                 <div>
-                    <h3 class="text-lg font-bold mb-6">Menu</h3>
+                    <h3 class="text-lg font-bold mb-6">Halaman</h3>
                     <ul class="space-y-3">
-                        <li><a href="https://pusatwifisolo.github.io/wifi/" class="text-gray-400 hover:text-white no-highlight">Halaman Utama</a></li>
+                        <li><a href="https://pusatwifisolo.github.io/wifi/" class="text-gray-400 hover:text-white no-highlight">Beranda</a></li>
                         <li><a href="https://pusatwifisolo.github.io/panduan/" class="text-gray-400 hover:text-white no-highlight">Panduan Layanan</a></li>
                         <li><a href="https://pusatwifisolo.github.io/pembayaran/" class="text-gray-400 hover:text-white no-highlight">Pembayaran</a></li>
                         <li><a href="https://pusatwifisolo.github.io/galeri/" class="text-gray-400 hover:text-white no-highlight">Galeri</a></li>
@@ -870,17 +883,10 @@
                     popup.innerHTML = 'ID pelanggan tidak valid. Masukkan 8 digit angka.';
                     document.body.appendChild(popup);
 
-                    const rect = loginForm.getBoundingClientRect();
-                    const scrollY = window.scrollY;
-                    const scrollX = window.scrollX;
-                    const buttonCenterX = rect.left + rect.width / 2;
-                    const popupHeight = 80;
-                    const offsetY = 20;
-
                     popup.style.position = 'fixed';
-                    popup.style.left = `${buttonCenterX + scrollX}px`;
-                    popup.style.top = `${rect.top + scrollY - popupHeight - offsetY}px`;
-                    popup.style.transform = 'translateX(-50%)';
+                    popup.style.top = '50%';
+                    popup.style.left = '50%';
+                    popup.style.transform = 'translate(-50%, -50%)';
                     popup.style.zIndex = '5000';
                     popup.style.animation = 'popIn 0.3s ease-out forwards';
                     setTimeout(() => {
@@ -888,7 +894,7 @@
                         setTimeout(() => {
                             popup.remove();
                         }, 300);
-                    }, 2500);
+                    }, 2000);
                 } catch (err) {
                     console.error('Failed to show popup:', err);
                 }
@@ -1013,20 +1019,13 @@
             navigator.clipboard.writeText('8175402043').then(() => {
                 const popup = document.createElement('div');
                 popup.className = 'popup-notification text-white bg-blue-600 p-4 rounded-lg shadow-lg';
-                popup.innerHTML = '<i class="fas fa-check-circle"></i> Nomor rekening disalin';
+                popup.innerHTML = 'Rekening telah disalin';
                 document.body.appendChild(popup);
 
-                const rect = button.getBoundingClientRect();
-                const scrollY = window.scrollY;
-                const scrollX = window.scrollX;
-                const buttonCenterX = rect.left + rect.width / 2;
-                const popupHeight = 80;
-                const offsetY = 10;
-
                 popup.style.position = 'fixed';
-                popup.style.left = `${buttonCenterX + scrollX}px`;
-                popup.style.top = `${rect.top + scrollY - popupHeight - offsetY}px`;
-                popup.style.transform = 'translateX(-50%)';
+                popup.style.top = '50%';
+                popup.style.left = '50%';
+                popup.style.transform = 'translate(-50%, -50%)';
                 popup.style.zIndex = '5000';
                 popup.style.animation = 'popIn 0.3s ease-out forwards';
                 setTimeout(() => {
@@ -1034,7 +1033,7 @@
                     setTimeout(() => {
                         popup.remove();
                     }, 300);
-                }, 2500);
+                }, 2000);
             }).catch(err => {
                 console.error('Gagal menyalin nomor rekening:', err);
             });
