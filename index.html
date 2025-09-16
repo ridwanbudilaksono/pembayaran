@@ -2,150 +2,104 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pembayaran Pusat WiFi Solo</title>
-    <link rel="icon" type="image/png" href="https://github.com/ridwanbudilaksono/wifi/blob/main/favicon.png?raw=true">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?cachebust=20250914">
+    <link rel="icon" type="image/png" href="https://github.com/pusatwifisolo/wifi/blob/main/logopwslow.png?raw=true">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-        body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #6b7280, #1e3a8a);
-            color: #333;
-            overflow-x: hidden;
-            width: 100%;
-            min-height: 100vh;
-            position: relative;
         }
+        
+        body {
+            margin: 0;
+            overflow-x: hidden;
+        }
+        
         .login-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
             z-index: 4000;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
             overflow-x: hidden;
-            margin-left: 0;
         }
-        .login-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800"%3E%3Cfilter id="bb"%3E%3CfeGaussianBlur in="SourceGraphic" stdDeviation="20" /%3E%3C/filter%3E%3Cpath fill="%23ffffff22" d="M400 0C179.1 0 0 179.1 0 400s179.1 400 400 400 400-179.1 400-400S620.9 0 400 0zm0 720c-176.7 0-320-143.3-320-320s143.3-320 320-320 320 143.3 320 320-143.3 320-320 320z"/%3E%3Ccircle fill="%23ffffff44" cx="400" cy="400" r="300" filter="url(%23bb)"/%3E%3C/svg%3E');
-            background-size: cover;
-            opacity: 0.4;
-            animation: subtlePulse 5s infinite ease-in-out;
-        }
-        .background-particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-        .background-particles span {
-            position: absolute;
-            background: rgba(255,255,255,0.3);
-            border-radius: 50%;
-            animation: floatPulse 6s infinite ease-in-out;
-            pointer-events: none;
-        }
-        .background-particles span:nth-child(1) { width: 20px; height: 20px; left: 5%; animation-delay: 0s; }
-        .background-particles span:nth-child(2) { width: 50px; height: 50px; left: 15%; animation-delay: 1s; }
-        .background-particles span:nth-child(3) { width: 30px; height: 30px; left: 25%; animation-delay: 2s; }
-        .background-particles span:nth-child(4) { width: 60px; height: 60px; left: 35%; animation-delay: 3s; }
-        .background-particles span:nth-child(5) { width: 40px; height: 40px; left: 45%; animation-delay: 4s; }
-        .background-particles span:nth-child(6) { width: 25px; height: 25px; left: 55%; animation-delay: 5s; }
-        .background-particles span:nth-child(7) { width: 70px; height: 70px; left: 65%; animation-delay: 6s; }
-        .background-particles span:nth-child(8) { width: 35px; height: 35px; left: 75%; animation-delay: 7s; }
-        .background-particles span:nth-child(9) { width: 55px; height: 55px; left: 85%; animation-delay: 8s; }
-        .background-particles span:nth-child(10) { width: 45px; height: 45px; left: 95%; animation-delay: 9s; }
+        
         .login-form {
             background: white;
-            border-radius: 20px;
-            padding: clamp(1em, 5vw, 2em);
+            border-radius: 15px;
+            padding: 2rem;
             box-shadow: 0 8px 30px rgba(0,0,0,0.2);
             width: 100%;
-            max-width: min(400px, 90vw);
+            max-width: 400px;
             text-align: center;
             position: relative;
             z-index: 1;
-            animation: fadeInUp 1s ease-out;
+            animation: fadeInUp 0.7s ease-out;
         }
+        
         .login-form h2 {
             color: #1e3a8a;
-            font-size: 2em;
-            margin-bottom: 1em;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
         }
+        
         .login-form input {
             width: 100%;
-            padding: 10px;
-            margin: 0.5em 0;
-            border: 1px solid #60a5fa;
+            padding: 12px;
+            margin: 0.75rem 0;
+            border: 1px solid #e5e7eb;
             border-radius: 10px;
-            font-size: 1em;
+            font-size: 1rem;
             outline: none;
-            transition: border-color 0.3s;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
+        
         .login-form input:focus {
             border-color: #3b82f6;
-            box-shadow: 0 0 5px rgba(59,130,246,0.5);
+            box-shadow: 0 0 8px rgba(59,130,246,0.3);
         }
-        .login-form .btn {
-            display: inline-block;
-            padding: 12px 25px;
+        
+        .btn-primary {
             background: linear-gradient(45deg, #1e3a8a, #3b82f6);
+            padding: 12px 0;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
             color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            margin-top: 1em;
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            cursor: pointer;
+            font-weight: 600;
+            display: inline-block;
+            text-align: center;
+            width: 161px;
         }
-        .login-form .btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #3b82f6, #1e3a8a);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
-        .login-form .btn.clicked {
-            animation: jumpOut 0.3s ease-in-out forwards;
-        }
+        
         .error-message {
             display: none;
         }
-        .bottom-animation {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 200px;
-            z-index: 0;
-        }
-        .bottom-animation span {
-            position: absolute;
-            background: rgba(255,255,255,0.2);
-            border-radius: 50%;
-            animation: float 6s infinite ease-in-out;
-            pointer-events: none;
-        }
-        .bottom-animation span:nth-child(1) { width: 40px; height: 40px; left: 10%; animation-delay: 0s; }
-        .bottom-animation span:nth-child(2) { width: 60px; height: 60px; left: 30%; animation-delay: 2s; }
-        .bottom-animation span:nth-child(3) { width: 30px; height: 30px; left: 50%; animation-delay: 4s; }
-        .bottom-animation span:nth-child(4) { width: 50px; height: 50px; left: 70%; animation-delay: 1s; }
-        .bottom-animation span:nth-child(5) { width: 35px; height: 35px; left: 90%; animation-delay: 3s; }
+        
         .loading-screen {
             position: fixed;
             top: 0;
@@ -158,18 +112,7 @@
             justify-content: center;
             align-items: center;
         }
-        .loading-screen::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800"%3E%3Cfilter id="bb"%3E%3CfeGaussianBlur in="SourceGraphic" stdDeviation="20" /%3E%3C/filter%3E%3Cpath fill="%23ffffff22" d="M400 0C179.1 0 0 179.1 0 400s179.1 400 400 400 400-179.1 400-400S620.9 0 400 0zm0 720c-176.7 0-320-143.3-320-320s143.3-320 320-320 320 143.3 320 320-143.3 320-320 320z"/%3E%3Ccircle fill="%23ffffff44" cx="400" cy="400" r="300" filter="url(%23bb)"/%3E%3C/svg%3E');
-            background-size: cover;
-            opacity: 0.4;
-            animation: subtlePulse 5s infinite ease-in-out;
-        }
+        
         .ring {
             position: absolute;
             top: 50%;
@@ -188,8 +131,9 @@
             letter-spacing: 4px;
             text-transform: uppercase;
             text-shadow: 0 0 10px #3b82f6;
-            box-shadow: 0 0 20px rgba(0,0,0,.5);
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
+        
         .ring:before {
             content: '';
             position: absolute;
@@ -203,6 +147,7 @@
             border-radius: 50%;
             animation: animateC 2s linear infinite;
         }
+        
         .ring span {
             display: block;
             position: absolute;
@@ -214,6 +159,7 @@
             transform-origin: left;
             animation: animate 2s linear infinite;
         }
+        
         .ring span:before {
             content: '';
             position: absolute;
@@ -225,319 +171,81 @@
             right: -8px;
             box-shadow: 0 0 20px #3b82f6;
         }
+        
         header {
-            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-            color: white;
-            text-align: center;
-            padding: 1.19em 1em;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-            display: none;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 50;
+            top: 0;
         }
-        header::before {
-            content: '';
+        
+        header .container {
+            max-width: 1200px;
+            padding: 1rem 1rem;
+        }
+        
+        .hero {
             position: absolute;
             top: 0;
             left: 0;
+            right: 0;
+            bottom: 0;
             width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800"%3E%3Cfilter id="bb"%3E%3CfeGaussianBlur in="SourceGraphic" stdDeviation="20" /%3E%3C/filter%3E%3Cpath fill="%23ffffff22" d="M400 0C179.1 0 0 179.1 0 400s179.1 400 400 400 400-179.1 400-400S620.9 0 400 0zm0 720c-176.7 0-320-143.3-320-320s143.3-320 320-320 320 143.3 320 320-143.3 320-320 320z"/%3E%3Ccircle fill="%23ffffff44" cx="400" cy="400" r="300" filter="url(%23bb)"/%3E%3C/svg%3E');
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
             background-size: cover;
-            opacity: 0.4;
-            animation: subtlePulse 5s infinite ease-in-out;
-        }
-        header h1 {
-            font-size: 2.8em;
-            margin-bottom: 0.4em;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-        header .part1, header .part2, header p, header .slogan {
-            opacity: 0;
-        }
-        header .part1.animated {
-            animation: slideInLeft 0.65s ease-out forwards;
-        }
-        header .part2.animated {
-            animation: slideInLeft 0.65s ease-out 0.845s forwards;
-        }
-        header p.animated {
-            animation: slideInRight 0.65s ease-out 1.495s forwards;
-        }
-        header .slogan.animated {
-            animation: slideInRight 0.65s ease-out 1.495s forwards;
-        }
-        header p {
-            font-size: 1.4em;
-            margin-bottom: 0.6em;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-        }
-        header .slogan {
-            font-size: 1.2em;
-            font-style: italic;
-        }
-        .container {
-            max-width: 1200px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 3em 1em;
-            overflow: hidden;
-            display: none;
-        }
-        .payment-methods {
-            display: grid;
-            grid-template-columns: repeat(3, 350px);
+            background-position: 50% center;
+            color: white;
+            display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 0.8em;
-            padding: 2em 0;
+            z-index: 10;
         }
-        .card {
-            background: linear-gradient(135deg, #e6f0ff, #f5faff);
-            border-radius: 20px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-            padding: 2em;
+        
+        .hero .container {
+            padding: 200px 1rem 0;
             text-align: center;
-            width: 350px;
-            height: 450px;
-            border: 1px solid #60a5fa;
-            position: relative;
+            max-width: 1200px;
+        }
+        
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 15px;
             overflow: hidden;
-            transition: box-shadow 0.4s, background 0.4s;
-            opacity: 0;
-            visibility: hidden;
+            width: 100%;
+            max-width: 350px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
-        .card.show-card {
-            opacity: 1;
-            visibility: visible;
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
         }
-        .card img {
-            max-width: 100%;
-            height: auto;
-            margin: 0.5em auto;
-            display: block;
-            max-height: 150px;
-            border-radius: 10px;
+        
+        .section-title {
             position: relative;
-            z-index: 1;
-            opacity: 0;
+            display: inline-block;
+            padding-bottom: 10px;
         }
-        .card.show-card img {
-            animation: fadeInUp 1s ease-out forwards;
-        }
-        .payment-methods .card:nth-child(1).show-card img {
-            animation-delay: 0.2s;
-        }
-        .payment-methods .card:nth-child(2).show-card img {
-            animation-delay: 0.4s;
-        }
-        .payment-methods .card:nth-child(3).show-card img {
-            animation-delay: 0.6s;
-        }
-        .card::before {
+        
+        .section-title::after {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(59,130,246,0.3), transparent);
-            transition: transform 0.5s;
+            width: 50%;
+            height: 3px;
+            background: #3b82f6;
+            bottom: 0;
+            left: 25%;
+            transform: translateX(-25%);
         }
-        .card:hover::before {
-            transform: scale(1.5);
-        }
-        .card:hover {
-            box-shadow: 0 15px 50px rgba(0,0,0,0.35);
-            background: linear-gradient(135deg, #f0f7ff, #ffffff);
-        }
-        .card h3 {
-            color: #1e3a8a;
-            font-size: 1.8em;
-            margin-bottom: 0.8em;
-            line-height: 1.2;
-            position: relative;
-            z-index: 1;
-        }
-        .card p {
-            margin: 0.6em 0;
-            font-size: 1em;
-            position: relative;
-            z-index: 1;
-        }
-        .card:not(.qris):not(.cash) img {
-            max-height: 225px;
-            max-width: 58.5%;
-            margin-bottom: 2.5em;
-        }
-        .card.qris img {
-            max-width: 55%;
-            margin-top: 2em;
-        }
-        .card.cash img {
-            max-width: 128.7%;
-            margin-top: 2em;
-        }
-        .transfer-details {
-            display: grid;
-            grid-template-columns: max-content 1fr;
-            gap: 0.5em;
-            text-align: left;
-            max-width: 350px;
-            margin: 0 auto 0.8em;
-            align-items: start;
-            position: relative;
-            z-index: 1;
-        }
-        .transfer-details .label {
-            font-weight: 600;
-            color: #1e3a8a;
-            text-align: right;
-        }
-        .transfer-details .value {
-            text-align: left;
-            white-space: nowrap;
-        }
-        .qris-details, .cash-details {
-            margin-top: 2em;
-            position: relative;
-            z-index: 1;
-        }
-        .qris-details p, .cash-details p {
-            margin: 0.6em 0;
-            font-size: 1em;
-            line-height: 1.5;
-        }
-        .button-group {
-            display: flex;
-            justify-content: center;
-            gap: 0.5em;
-            flex-wrap: wrap;
-            margin-top: 2em;
-            position: relative;
-            z-index: 1;
-            max-width: 100%;
-            margin-left: auto;
-            margin-right: auto;
-            box-sizing: border-box;
-        }
-        .btn {
-            display: inline-block;
-            padding: 12px 25px;
-            background: linear-gradient(45deg, #1e3a8a, #3b82f6);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            transition: opacity 0.3s ease-out, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            white-space: nowrap;
-            text-align: center;
-            outline: none;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-        }
-        .btn.clicked {
-            animation: jumpOut 0.3s ease-in-out forwards;
-        }
-        #payment-steps {
-            background: white;
-            border-radius: 20px;
-            padding: 1em;
-            margin: 2.5em 1em;
-            text-align: center;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-            animation: fadeInUp 1s ease-out;
-            border: 3px solid #3b82f6;
-        }
-        #payment-steps h2 {
-            color: #1e3a8a;
-            font-size: 1.8em;
-            margin-bottom: 0.8em;
-        }
-        #payment-steps ol {
-            text-align: left;
-            max-width: 600px;
-            margin: 0 auto;
-            font-size: 1.1em;
-            line-height: 1.5;
-            padding-left: 2em;
-        }
-        #payment-steps li {
-            margin-bottom: 0.8em;
-        }
-        .links-section {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1em 0;
-        }
-        .links-container {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: nowrap;
-            gap: 0.5em;
-        }
-        .links-container a {
-            width: 194px;
-            display: inline-block;
-            padding: 12px 0;
-            background: linear-gradient(45deg, #1e3a8a, #3b82f6);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            transition: opacity 0.3s ease-out, transform 0.3s ease-in-out;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            white-space: nowrap;
-            text-align: center;
-            outline: none;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-            animation: bounceIn 0.6s ease-out forwards;
-        }
-        .links-container a:hover {
-            animation: pulse 0.8s infinite ease-in-out;
-        }
-        .links-container a.clicked {
-            animation: fadeOut 0.3s ease-out forwards;
-        }
-        .links-container .gallery-btn {
-            margin-right: auto;
-            margin-left: 0;
-            animation-delay: 0.1s;
-        }
-        .links-container .home-btn {
-            margin-left: auto;
-            margin-right: auto;
-            animation-delay: 0.2s;
-        }
-        .links-container .guide-btn {
-            margin-left: auto;
-            margin-right: 0;
-            animation-delay: 0.3s;
-        }
-        .popup-notification {
-            position: fixed;
-            background: linear-gradient(45deg, #1e3a8a, #3b82f6);
-            color: white;
-            padding: 0.8em 1.5em;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            font-size: 1em;
-            font-weight: 600;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-            z-index: 5000;
-            opacity: 0;
-            animation: popIn 0.3s ease-out forwards, fadeOut 0.3s ease-out 2.2s forwards;
-            max-width: min(90vw, 500px);
-            white-space: normal;
-            line-height: 1.4;
-            text-align: center;
-            transform: translate(-50%, -100%);
-        }
+        
         .image-overlay {
             position: fixed;
             top: 0;
@@ -553,405 +261,520 @@
             visibility: hidden;
             transition: opacity 0.5s, visibility 0.5s;
         }
+        
         .image-overlay.show {
             opacity: 1;
             visibility: visible;
         }
+        
         .image-overlay img {
             max-width: 90%;
             max-height: 90%;
             border-radius: 10px;
         }
+        
         .image-overlay .close-btn {
             position: absolute;
             top: 15px;
             right: 15px;
-            font-size: 2.07em;
+            font-size: 2em;
             cursor: pointer;
             color: white;
             transition: color 0.3s, transform 0.3s;
         }
+        
         .image-overlay .close-btn:hover {
             color: #3b82f6;
             transform: rotate(90deg) scale(1.2);
         }
+        
         .whatsapp-float {
             position: fixed;
-            bottom: 10px;
-            left: 10px;
+            bottom: 20px;
+            right: 20px;
             z-index: 1000;
-            width: 61px;
-            height: 61px;
+            width: 60px;
+            height: 60px;
             background: linear-gradient(45deg, #25D366, #128C7E);
             border-radius: 50%;
             box-shadow: 0 6px 20px rgba(0,0,0,0.3);
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.3s ease-out, transform 0.3s ease-in-out;
+            transition: transform 0.3s ease-in-out;
             cursor: pointer;
-            opacity: 0;
-            outline: none;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
         }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+        
         .whatsapp-float img {
             width: 40px;
             height: 40px;
         }
-        .whatsapp-float.show {
-            animation: bounceIn 0.6s ease-out forwards;
+        
+        .no-highlight {
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
         }
-        .whatsapp-float.clicked {
-            animation: jumpOut 0.3s ease-in-out forwards;
+        
+        .transfer-details {
+            display: grid;
+            grid-template-columns: auto 20px 1fr;
+            gap: 0.5rem;
+            align-items: center;
+            text-align: left;
+            padding-left: 1.5rem;
         }
-        footer {
-            background: linear-gradient(45deg, #1e3a8a, #3b82f6);
-            color: white;
+        
+        .transfer-details .colon {
+            justify-self: center;
             text-align: center;
-            padding: 0.3em;
-            position: relative;
-            width: 100%;
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
-            display: none;
+            width: 20px;
         }
-        footer p {
-            animation: fadeIn 2s ease-in;
-            font-size: 0.8em;
-            white-space: pre-line;
-            line-height: 1.3;
+        
+        .payment-methods {
+            margin-top: 927px;
         }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-100px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(100px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes fadeOut {
-            from { opacity: 1; }
-            to { opacity: 0; }
-        }
-        @keyframes bounceIn {
-            0% { opacity: 0; transform: translateY(20px) scale(0.9); }
-            60% { opacity: 1; transform: translateY(-10px) scale(1.05); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.07); }
-            100% { transform: scale(1); }
-        }
-        @keyframes jumpOut {
-            0% { opacity: 1; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.07); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-        @keyframes popIn {
-            from { opacity: 0; transform: translate(-50%, -120%) scale(0.7); }
-            to { opacity: 1; transform: translate(-50%, -100%) scale(1); }
-        }
-        @keyframes subtlePulse {
-            0% { opacity: 0.4; }
-            50% { opacity: 0.6; }
-            100% { opacity: 0.4; }
-        }
-        @keyframes float {
-            0% { opacity: 0.2; transform: translateY(0); }
-            50% { opacity: 0.5; }
-            100% { opacity: 0; transform: translateY(-200px); }
-        }
-        @keyframes floatPulse {
-            0% { opacity: 0.2; transform: translateY(0) scale(1); }
-            50% { opacity: 0.4; transform: translateY(-100px) scale(1.2); }
-            100% { opacity: 0.2; transform: translateY(0) scale(1); }
-        }
-        @keyframes animateC {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        @keyframes animate {
-            0% { transform: rotate(45deg); }
-            100% { transform: rotate(405deg); }
-        }
-        @media (max-width: 768px) {
-            .login-container { margin-left: 0; }
-            .login-form {
-                max-width: min(300px, 90vw);
-                padding: clamp(1em, 4vw, 1.5em);
+        
+        /* Responsive adjustments */
+        @media (min-width: 1024px) {
+            .hero {
+                background-position: 50% center;
             }
-            .login-form h2 { font-size: 1.5em; }
-            .login-form input { font-size: 0.9em; }
-            .login-form .btn { padding: 10px 20px; font-size: 0.9em; }
-            .popup-notification {
-                font-size: 0.9em;
-                padding: 0.8em 1.2em;
-                white-space: normal;
+            .hero .container {
+                padding: 200px 2rem 0;
             }
-            .background-particles span:nth-child(1) { width: 15px; height: 15px; }
-            .background-particles span:nth-child(2) { width: 40px; height: 40px; }
-            .background-particles span:nth-child(3) { width: 25px; height: 25px; }
-            .background-particles span:nth-child(4) { width: 50px; height: 50px; }
-            .background-particles span:nth-child(5) { width: 30px; height: 30px; }
-            .background-particles span:nth-child(6) { width: 20px; height: 20px; }
-            .background-particles span:nth-child(7) { width: 60px; height: 60px; }
-            .background-particles span:nth-child(8) { width: 25px; height: 25px; }
-            .background-particles span:nth-child(9) { width: 45px; height: 45px; }
-            .background-particles span:nth-child(10) { width: 35px; height: 35px; }
-            .bottom-animation span:nth-child(1) { width: 30px; height: 30px; }
-            .bottom-animation span:nth-child(2) { width: 45px; height: 45px; }
-            .bottom-animation span:nth-child(3) { width: 25px; height: 25px; }
-            .bottom-animation span:nth-child(4) { width: 35px; height: 35px; }
-            .bottom-animation span:nth-child(5) { width: 25px; height: 25px; }
-            header { padding: 0.8925em 1em; }
-            header h1 { font-size: 2em; }
-            header p { font-size: 1.2em; }
-            header .slogan { font-size: 1em; }
-            .container { padding: 2em 0.5em; }
             .payment-methods {
-                grid-template-columns: 1fr;
-                gap: 0.6em;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.5rem;
+                max-width: 1200px;
+                margin: 798px auto 2rem;
             }
             .card {
-                padding: 1.2em;
+                min-height: 400px;
+                padding: 2rem;
+            }
+            .card h3 {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+            .card img {
+                max-height: 120px;
+                margin-bottom: 1.5rem;
+            }
+            .card p, .card .transfer-details, .card .qris-details, .card .cash-details {
+                font-size: 1rem;
+                min-height: 60px;
+            }
+            .card .btn-primary {
+                padding: 12px 0;
+                font-size: 1rem;
+                margin-top: 1.5rem;
+                width: 161px;
+            }
+            .card .flex-wrap {
+                gap: 1rem;
+            }
+        }
+        
+        @media (max-width: 1023px) {
+            .hero {
+                background-position: center center;
+                min-height: 100vh;
+            }
+            .hero .container {
+                padding: 160px 1rem 0;
+            }
+            .payment-methods {
+                margin-top: 927px;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
                 width: 100%;
-                height: 320px;
+                max-width: 100%;
+                margin-bottom: 2rem;
             }
-            .card h3 { font-size: 1.5em; }
-            .card p { font-size: 0.9em; }
-            .card img { max-height: 120px; }
-            .card:not(.qris):not(.cash) img { max-height: 180px; max-width: 58.5%; margin-bottom: 2.5em; }
-            .card.qris img { max-width: 55%; margin-top: 0.8em; }
-            .card.cash img { max-width: 128.7%; margin-top: 0.8em; }
-            .transfer-details { max-width: 300px; margin-bottom: 0.6em; }
-            .transfer-details .value { font-size: 0.9em; }
-            .qris-details, .cash-details { margin-top: 0.8em; }
-            .button-group { margin-top: 0.8em; }
-            .btn { padding: 10px 20px; font-size: 0.9em; }
-            #payment-steps {
-                margin: 2em 0.5em;
-                padding: 1em;
+            .card {
+                padding: 1.5rem;
+                min-height: 360px;
+                max-width: 400px;
             }
-            #payment-steps ol {
-                font-size: 1em;
-                padding-left: 1.5em;
+            .card h3 {
+                font-size: 1.25rem;
+                margin-bottom: 1rem;
             }
-            .links-container a {
-                width: 155px;
+            .card img {
+                max-height: 100px;
+                margin-bottom: 1rem;
+            }
+            .card p, .card .transfer-details, .card .qris-details, .card .cash-details {
+                font-size: 0.9rem;
+            }
+            .card .btn-primary {
                 padding: 10px 0;
-                font-size: 0.9em;
+                font-size: 0.9rem;
+                margin-top: 1rem;
+                width: 134px;
             }
-            .image-overlay .close-btn { font-size: 1.725em; }
-            .whatsapp-float {
-                width: 51px;
-                height: 51px;
-                bottom: 10px;
-                left: 10px;
+            .card .flex-wrap {
+                gap: 0.5rem;
             }
-            .whatsapp-float img {
-                width: 34px;
-                height: 34px;
-            }
-            footer { padding: 0.25em; }
-            footer p { font-size: 0.7em; }
         }
-        @media (max-width: 480px) {
-            .login-container { margin-left: 0; }
+        
+        @media (max-width: 767px) {
+            .hero .container {
+                padding: 120px 1rem 0;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .hero h2 {
+                font-size: 1.75rem;
+            }
+            .hero p {
+                font-size: 1.25rem;
+            }
+            .hero p.italic {
+                font-size: 1rem;
+            }
             .login-form {
-                max-width: min(250px, 90vw);
-                padding: clamp(0.8em, 3vw, 1em);
+                max-width: 320px;
+                padding: 1.5rem;
             }
-            .login-form h2 { font-size: 1.3em; }
-            .login-form input { font-size: 0.8em; }
-            .login-form .btn { padding: 8px 15px; font-size: 0.8em; }
-            .popup-notification {
-                font-size: 0.8em;
-                padding: 0.6em 1em;
-                white-space: normal;
+            .login-form h2 {
+                font-size: 1.75rem;
             }
-            .background-particles span:nth-child(1) { width: 10px; height: 10px; }
-            .background-particles span:nth-child(2) { width: 30px; height: 30px; }
-            .background-particles span:nth-child(3) { width: 20px; height: 20px; }
-            .background-particles span:nth-child(4) { width: 40px; height: 40px; }
-            .background-particles span:nth-child(5) { width: 25px; height: 25px; }
-            .background-particles span:nth-child(6) { width: 15px; height: 15px; }
-            .background-particles span:nth-child(7) { width: 50px; height: 50px; }
-            .background-particles span:nth-child(8) { width: 20px; height: 20px; }
-            .background-particles span:nth-child(9) { width: 35px; height: 35px; }
-            .background-particles span:nth-child(10) { width: 25px; height: 25px; }
-            .bottom-animation span:nth-child(1) { width: 20px; height: 20px; }
-            .bottom-animation span:nth-child(2) { width: 35px; height: 35px; }
-            .bottom-animation span:nth-child(3) { width: 15px; height: 15px; }
-            .bottom-animation span:nth-child(4) { width: 25px; height: 25px; }
-            .bottom-animation span:nth-child(5) { width: 20px; height: 20px; }
-            header { padding: 0.595em 0.5em; }
-            header h1 { font-size: 1.6em; }
-            header p { font-size: 1em; }
-            header .slogan { font-size: 0.9em; }
-            .payment-methods {
-                grid-template-columns: 1fr;
-                gap: 0.5em;
+            .login-form input {
+                font-size: 0.9rem;
+                padding: 10px;
             }
-            .card {
-                padding: 0.8em;
-                width: 100%;
-                height: 300px;
+            .login-form .btn-primary {
+                padding: 10px 0;
+                font-size: 0.9rem;
+                width: 134px;
             }
-            .card h3 { font-size: 1.3em; }
-            .card p { font-size: 0.8em; }
-            .card img { max-height: 100px; }
-            .card:not(.qris):not(.cash) img { max-height: 150px; max-width: 58.5%; margin-bottom: 2.5em; }
-            .card.qris img { max-width: 55%; margin-top: 0.6em; }
-            .card.cash img { max-width: 128.7%; margin-top: 0.6em; }
-            .transfer-details { max-width: 250px; margin-bottom: 0.5em; }
-            .transfer-details .value { font-size: 0.8em; }
-            .qris-details, .cash-details { margin-top: 0.6em; }
-            .button-group { margin-top: 0.6em; }
-            .btn { padding: 8px 15px; font-size: 0.8em; }
-            #payment-steps {
-                padding: 1em;
-            }
-            #payment-steps ol {
-                font-size: 0.9em;
-                padding-left: 1.2em;
-            }
-            .links-container a {
-                width: 129px;
-                padding: 8px 0;
-                font-size: 0.8em;
-            }
-            .image-overlay .close-btn { font-size: 1.495em; }
             .whatsapp-float {
-                width: 46px;
-                height: 46px;
-                bottom: 10px;
-                left: 10px;
+                width: 50px;
+                height: 50px;
+                bottom: 15px;
+                right: 15px;
             }
             .whatsapp-float img {
                 width: 30px;
                 height: 30px;
             }
-            footer { padding: 0.2em; }
-            footer p { font-size: 0.65em; }
+            .payment-methods {
+                margin-top: 696px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero .container {
+                padding: 100px 0.75rem 0;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero h2 {
+                font-size: 1.5rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .hero p.italic {
+                font-size: 0.875rem;
+            }
+            .card {
+                padding: 1rem;
+                min-height: 320px;
+                max-width: 300px;
+            }
+            .card h3 {
+                font-size: 1.1rem;
+                margin-bottom: 0.75rem;
+            }
+            .card img {
+                max-height: 80px;
+                margin-bottom: 0.75rem;
+            }
+            .card p, .card .transfer-details, .card .qris-details, .card .cash-details {
+                font-size: 0.8rem;
+            }
+            .card .btn-primary {
+                padding: 8px 0;
+                font-size: 0.8rem;
+                margin-top: 0.75rem;
+                width: 112px;
+            }
+            .login-form {
+                max-width: 280px;
+                padding: 1rem;
+            }
+            .login-form h2 {
+                font-size: 1.5rem;
+            }
+            .login-form input {
+                font-size: 0.8rem;
+                padding: 8px;
+            }
+            .login-form .btn-primary {
+                padding: 8px 0;
+                font-size: 0.8rem;
+                width: 112px;
+            }
+            .whatsapp-float {
+                width: 45px;
+                height: 45px;
+            }
+            .whatsapp-float img {
+                width: 25px;
+                height: 25px;
+            }
+            .payment-methods {
+                margin-top: 580px;
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes popIn {
+            from { opacity: 0; transform: translate(-50%, -120%) scale(0.7); }
+            to { opacity: 1; transform: translate(-50%, -100%) scale(1); }
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        
+        @keyframes animateC {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes animate {
+            0% { transform: rotate(45deg); }
+            100% { transform: rotate(405deg); }
         }
     </style>
 </head>
 <body>
-    <div class="login-container" id="loginContainer">
-        <div class="background-particles">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
+    <header class="bg-white shadow-md fixed w-full z-50">
+        <div class="container mx-auto max-w-1200px px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="https://github.com/pusatwifisolo/wifi/blob/main/logopwslow.png?raw=true" alt="Logo" class="w-12 h-12 mr-3">
+                <span class="text-2xl font-bold text-gray-800">Pusat WiFi <span class="text-blue-600">Solo</span></span>
+            </div>
+            <nav class="hidden md:flex space-x-10">
+                <a href="#home" class="text-gray-600 hover:text-blue-600 font-medium no-highlight">Beranda</a>
+                <a href="#about" class="text-gray-600 hover:text-blue-600 font-medium no-highlight">Tentang</a>
+                <a href="#services" class="text-gray-600 hover:text-blue-600 font-medium no-highlight">Layanan</a>
+                <a href="#pricing" class="text-gray-600 hover:text-blue-600 font-medium no-highlight">Harga</a>
+                <a href="#contact" class="text-gray-600 hover:text-blue-600 font-medium no-highlight">Kontak</a>
+            </nav>
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-gray-600 no-highlight">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
         </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-4 px-4">
+            <a href="#home" class="block py-2 text-gray-600 hover:text-blue-600 no-highlight">Beranda</a>
+            <a href="#about" class="block py-2 text-gray-600 hover:text-blue-600 no-highlight">Tentang</a>
+            <a href="#services" class="block py-2 text-gray-600 hover:text-blue-600 no-highlight">Layanan</a>
+            <a href="#pricing" class="block py-2 text-gray-600 hover:text-blue-600 no-highlight">Harga</a>
+            <a href="#contact" class="block py-2 text-gray-600 hover:text-blue-600 no-highlight">Kontak</a>
+        </div>
+    </header>
+
+    <div class="login-container" id="loginContainer">
         <div class="login-form">
             <h2>Pusat WiFi Solo</h2>
-            <input type="text" id="customerId" placeholder="ID Pelanggan" maxlength="25" inputmode="numeric" onkeypress="handleEnterKey(event, 'password')">
-            <input type="password" id="password" placeholder="Password" maxlength="25" inputmode="numeric" onkeypress="handleEnterKey(event, 'login')">
-            <div class="btn" onclick="handleLogin()">Masuk</div>
+            <input type="text" id="customerId" placeholder="ID Pelanggan" maxlength="8" inputmode="numeric" onkeypress="handleEnterKey(event, 'login')">
+            <div class="btn-primary" onclick="handleLogin()">Masuk</div>
             <div id="errorMessage" class="error-message"></div>
         </div>
-        <div class="bottom-animation">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
     </div>
+
     <div class="loading-screen" id="loadingScreen">
         <div class="ring">Loading<span></span></div>
     </div>
-    <header id="mainHeader">
-        <h1>
-            <span class="part1">Pembayaran</span>
-            <br>
-            <span class="part2">Pusat WiFi Solo</span>
-        </h1>
-        <p>Lunas Lebih Cepat, Internet Lebih Lancar</p>
-        <p class="slogan">Proses Mudah, Aman, dan Terpercaya</p>
-    </header>
+
+    <section class="hero" id="mainContainer" style="display: none;">
+        <div class="container mx-auto max-w-1200px px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">Pembayaran</h1>
+            <h2 class="text-2xl md:text-3xl font-bold mb-6">Pusat WiFi Solo</h2>
+            <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto">Lunas Lebih Cepat, Internet Lebih Lancar</p>
+            <p class="text-lg md:text-xl mb-16 italic max-w-3xl mx-auto">Proses Mudah, Aman, dan Terpercaya</p>
+        </div>
+    </section>
+
+    <div class="container mx-auto max-w-1200px px-4">
+        <section class="payment-methods">
+            <div class="card p-4 md:p-6 text-center">
+                <h3 class="text-lg md:text-2xl font-bold mb-4">TRANSFER</h3>
+                <img src="https://github.com/ridwanbudilaksono/wifi/blob/main/bcalogofit.png?raw=true" alt="BCA Logo" class="mx-auto mb-4">
+                <div class="transfer-details text-sm md:text-base mb-6 text-blue-800">
+                    <span>BCA</span>
+                    <span class="colon">:</span>
+                    <span>817-540-2043</span>
+                    <span>A/N</span>
+                    <span class="colon">:</span>
+                    <span>RIDWAN BUDI LAKSONO</span>
+                </div>
+                <div class="flex justify-center gap-2 flex-wrap">
+                    <a href="javascript:void(0)" class="btn-primary no-highlight" onclick="showImage('https://github.com/ridwanbudilaksono/wifi/blob/main/bcapay.jpg?raw=true')">Tampilkan</a>
+                    <a href="javascript:void(0)" class="btn-primary no-highlight" onclick="redirectToWhatsApp('Transfer')">Konfirmasi</a>
+                    <a href="javascript:void(0)" class="btn-primary no-highlight copy-btn" onclick="copyAccountNumber(this, event)">Salin Rekening</a>
+                </div>
+            </div>
+            <div class="card p-4 md:p-6 text-center qris">
+                <h3 class="text-lg md:text-2xl font-bold mb-4">QRIS</h3>
+                <img src="https://github.com/ridwanbudilaksono/wifi/blob/main/qrislogo.png?raw=true" alt="QRIS Logo" class="mx-auto mb-4">
+                <div class="qris-details text-sm md:text-base mb-6">
+                    <p>Scan kode QR untuk pembayaran<br>Kirim bukti ke WhatsApp</p>
+                </div>
+                <div class="flex justify-center gap-2 flex-wrap">
+                    <a href="javascript:void(0)" class="btn-primary no-highlight" onclick="showImage('https://github.com/ridwanbudilaksono/wifi/blob/main/qrisbayar.jpg?raw=true')">Tampilkan</a>
+                    <a href="javascript:void(0)" class="btn-primary no-highlight" onclick="redirectToWhatsApp('QRIS')">Konfirmasi</a>
+                </div>
+            </div>
+            <div class="card p-4 md:p-6 text-center cash">
+                <h3 class="text-lg md:text-2xl font-bold mb-4">CASH</h3>
+                <img src="https://github.com/ridwanbudilaksono/wifi/blob/main/dompetlogonew.png?raw=true" alt="Cash Logo" class="mx-auto mb-4">
+                <div class="cash-details text-sm md:text-base mb-6">
+                    <p>Hubungi kami untuk pembayaran tunai<br>Kirim konfirmasi ke WhatsApp</p>
+                </div>
+                <div class="flex justify-center gap-2 flex-wrap">
+                    <a href="javascript:void(0)" class="btn-primary no-highlight" onclick="redirectToWhatsApp('Cash')">Konfirmasi</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="payment-steps" class="bg-white p-6 rounded-xl shadow-md text-center mt-12 mb-20">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 section-title mx-auto">Cara Pembayaran</h2>
+            <ul class="text-left max-w-2xl mx-auto text-sm md:text-base space-y-3">
+                <li class="flex items-start">
+                    <i class="fas fa-user-plus text-blue-600 mr-4"></i>
+                    <span>Pilih metode pembayaran (Transfer, QRIS, atau Cash).</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-list text-blue-600 mr-4"></i>
+                    <span>Untuk Transfer: Gunakan nomor rekening BCA: 817-540-2043 (A/N: RIDWAN BUDI LAKSONO) atau salin nomor rekening dengan tombol "Salin Rekening".</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-qrcode text-blue-600 mr-4"></i>
+                    <span>Untuk QRIS: Scan kode QR menggunakan tombol "Tampilkan".</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-money-bill-wave text-blue-600 mr-4"></i>
+                    <span>Untuk Cash: Hubungi kami melalui WhatsApp untuk detail pembayaran tunai.</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-comment-alt text-blue-600 mr-4"></i>
+                    <span>Kirim bukti atau konfirmasi pembayaran melalui WhatsApp ke nomor <a href="javascript:void(0)" class="text-blue-600 hover:text-blue-800 no-highlight" onclick="redirectToWhatsApp()">0857 7777 3541</a>.</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-clock text-blue-600 mr-4"></i>
+                    <span>Tunggu konfirmasi dari tim kami dalam waktu 1x24 jam.</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-check-circle text-blue-600 mr-4"></i>
+                    <span>Nikmati layanan internet tanpa gangguan!</span>
+                </li>
+            </ul>
+        </section>
+    </div>
+
     <div class="image-overlay" id="imageOverlay">
         <span class="close-btn" onclick="closeImageOverlay()">&times;</span>
         <img id="overlayImage" src="" alt="Payment Image">
     </div>
-    <div class="container" id="mainContainer">
-        <section class="payment-methods">
-            <div class="card">
-                <h3>TRANSFER</h3>
-                <img src="https://github.com/ridwanbudilaksono/wifi/blob/main/bcalogofit.png?raw=true" alt="BCA Logo">
-                <div class="transfer-details">
-                    <span class="label">BCA :</span>
-                    <span class="value">817-540-2043</span>
-                    <span class="label">A/N :</span>
-                    <span class="value">RIDWAN BUDI LAKSONO</span>
-                </div>
-                <div class="button-group">
-                    <a href="javascript:void(0)" class="btn" onclick="showImage('https://github.com/ridwanbudilaksono/wifi/blob/main/bcapay.jpg?raw=true')">Tampilkan</a>
-                    <a href="javascript:void(0)" class="btn copy-btn" onclick="copyAccountNumber(this, event)">Salin Rekening</a>
-                    <a href="javascript:void(0)" class="btn" onclick="redirectToWhatsApp('Transfer')">Konfirmasi</a>
-                </div>
-            </div>
-            <div class="card qris">
-                <h3>QRIS</h3>
-                <img src="https://github.com/ridwanbudilaksono/wifi/blob/main/qrislogo.png?raw=true" alt="QRIS Logo">
-                <div class="qris-details">
-                    <p>Scan kode QR untuk pembayaran<br><br>Kirim bukti ke WhatsApp</p>
-                </div>
-                <div class="button-group">
-                    <a href="javascript:void(0)" class="btn" onclick="showImage('https://github.com/ridwanbudilaksono/wifi/blob/main/qrisbayar.jpg?raw=true')">Tampilkan</a>
-                    <a href="javascript:void(0)" class="btn" onclick="redirectToWhatsApp('QRIS')">Konfirmasi</a>
-                </div>
-            </div>
-            <div class="card cash">
-                <h3>CASH</h3>
-                <img src="https://github.com/ridwanbudilaksono/wifi/blob/main/dompetlogonew.png?raw=true" alt="Cash Logo">
-                <div class="cash-details">
-                    <p>Hubungi kami untuk pembayaran tunai<br><br>Kirim konfirmasi ke WhatsApp</p>
-                </div>
-                <div class="button-group">
-                    <a href="javascript:void(0)" class="btn" onclick="redirectToWhatsApp('Cash')">Konfirmasi</a>
-                </div>
-            </div>
-        </section>
-        <section id="payment-steps">
-            <h2>Cara Pembayaran</h2>
-            <ol>
-                <li>Pilih metode pembayaran (Transfer, QRIS, atau Cash).</li>
-                <li>Untuk Transfer: Gunakan nomor rekening BCA: 817-540-2043 (A/N: RIDWAN BUDI LAKSONO) atau salin nomor rekening dengan tombol "Salin Rekening".</li>
-                <li>Untuk QRIS: Scan kode QR menggunakan tombol "Tampilkan".</li>
-                <li>Untuk Cash: Hubungi kami melalui WhatsApp untuk detail pembayaran tunai.</li>
-                <li>Kirim bukti atau konfirmasi pembayaran melalui WhatsApp ke nomor 0857 7777 3541.</li>
-                <li>Tunggu konfirmasi dari tim kami dalam waktu 1x24 jam.</li>
-                <li>Nikmati layanan internet tanpa gangguan!</li>
-            </ol>
-        </section>
-        <section class="links-section">
-            <div class="links-container">
-                <a href="https://pusatwifisolo.github.io/galeri/" class="gallery-btn">Galeri</a>
-                <a href="https://pusatwifisolo.github.io/wifi/" class="home-btn">Halaman Utama</a>
-                <a href="https://pusatwifisolo.github.io/panduan/" class="guide-btn">Panduan Layanan</a>
-            </div>
-        </section>
-    </div>
+
     <div class="whatsapp-float" id="whatsappFloat" onclick="redirectToContactWhatsApp()">
         <img src="https://github.com/ridwanbudilaksono/wifi/blob/main/whatsapp.png?raw=true" alt="WhatsApp">
     </div>
-    <footer id="mainFooter">
-        <p>2025 Pusat WiFi Solo\nInternet Lancar dan Stabil</p>
+
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto max-w-1200px px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center mb-6">
+                        <img src="https://github.com/pusatwifisolo/wifi/blob/main/logopwslow.png?raw=true" alt="Logo" class="w-10 h-10 mr-3">
+                        <span class="text-2xl font-bold">Pusat WiFi <span class="text-blue-400">Solo</span></span>
+                    </div>
+                    <p class="text-gray-400">Internet Lancar dan Stabil untuk rumah dan bisnis.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-6">Menu</h3>
+                    <ul class="space-y-3">
+                        <li><a href="https://pusatwifisolo.github.io/wifi/" class="text-gray-400 hover:text-white no-highlight">Halaman Utama</a></li>
+                        <li><a href="https://pusatwifisolo.github.io/panduan/" class="text-gray-400 hover:text-white no-highlight">Panduan Layanan</a></li>
+                        <li><a href="https://pusatwifisolo.github.io/pembayaran/" class="text-gray-400 hover:text-white no-highlight">Pembayaran</a></li>
+                        <li><a href="https://pusatwifisolo.github.io/galeri/" class="text-gray-400 hover:text-white no-highlight">Galeri</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-6">Tetap Terhubung</h3>
+                    <div class="flex space-x-4 mb-6">
+                        <a href="javascript:void(0)" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-blue-600 no-highlight" onclick="redirectToContactWhatsApp('general')">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="mailto:halopusatwifisolo@gmail.com?subject=Informasi%20Pasang%20WiFi%20Solo" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-blue-600 no-highlight">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-10 pt-6 text-center text-gray-400">
+                <p>&copy; 2025 Pusat WiFi Solo. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
+
     <script>
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('mobile-menu');
+            const toggle = document.getElementById('menu-toggle');
+            if (!menu.contains(event.target) && !toggle.contains(event.target) && !menu.classList.contains('hidden')) {
+                menu.classList.add('hidden');
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop,
+                        behavior: 'smooth'
+                    });
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+
         // Clear inputs on page load/refresh
         document.addEventListener('DOMContentLoaded', function() {
             clearInputsOnLoad();
@@ -959,16 +782,13 @@
 
         function clearInputsOnLoad() {
             document.getElementById('customerId').value = '';
-            document.getElementById('password').value = '';
         }
 
         // Handle Enter key presses
-        function handleEnterKey(event, nextAction) {
+        function handleEnterKey(event, action) {
             if (event.key === 'Enter') {
                 event.preventDefault();
-                if (nextAction === 'password') {
-                    document.getElementById('password').focus();
-                } else if (nextAction === 'login') {
+                if (action === 'login') {
                     handleLogin();
                 }
             }
@@ -977,41 +797,40 @@
         // Handle login form submission
         function handleLogin() {
             const customerId = document.getElementById('customerId').value;
-            const password = document.getElementById('password').value;
-            const loginButton = document.querySelector('.login-form .btn');
+            const loginButton = document.querySelector('.login-form .btn-primary');
             const loginForm = document.querySelector('.login-form');
 
-            // Add click animation
             loginButton.classList.add('clicked');
             setTimeout(() => {
                 loginButton.classList.remove('clicked');
             }, 300);
 
-            // Validate input
             const isNumeric = /^\d{8}$/;
-            if (customerId === '' || password === '' || !isNumeric.test(customerId) || !isNumeric.test(password)) {
+            if (customerId === '' || !isNumeric.test(customerId)) {
                 try {
                     const popup = document.createElement('div');
-                    popup.className = 'popup-notification';
-                    popup.innerHTML = 'ID pelanggan tidak ditemukan atau password salah.<br>Periksa kembali.';
+                    popup.className = 'popup-notification text-white bg-blue-600 p-4 rounded-lg shadow-lg';
+                    popup.innerHTML = 'ID pelanggan tidak valid. Masukkan 8 digit angka.';
                     document.body.appendChild(popup);
 
                     const rect = loginForm.getBoundingClientRect();
                     const scrollY = window.scrollY;
                     const scrollX = window.scrollX;
                     const buttonCenterX = rect.left + rect.width / 2;
-                    const popupHeight = 80; // Increased for two lines and padding
+                    const popupHeight = 80;
                     const offsetY = 20;
-                    const maxX = window.innerWidth - 100; // Approximate popup width
-                    const maxY = window.innerHeight - popupHeight;
-                    const clampedX = Math.min(Math.max(buttonCenterX + scrollX, 50), maxX);
-                    const clampedY = Math.min(Math.max(rect.top + scrollY - popupHeight - offsetY, 80), maxY);
 
-                    popup.style.left = `${clampedX}px`;
-                    popup.style.top = `${clampedY}px`;
-
+                    popup.style.position = 'fixed';
+                    popup.style.left = `${buttonCenterX + scrollX}px`;
+                    popup.style.top = `${rect.top + scrollY - popupHeight - offsetY}px`;
+                    popup.style.transform = 'translateX(-50%)';
+                    popup.style.zIndex = '5000';
+                    popup.style.animation = 'popIn 0.3s ease-out forwards';
                     setTimeout(() => {
-                        popup.remove();
+                        popup.style.animation = 'fadeOut 0.3s ease-out forwards';
+                        setTimeout(() => {
+                            popup.remove();
+                        }, 300);
                     }, 2500);
                 } catch (err) {
                     console.error('Failed to show popup:', err);
@@ -1019,7 +838,6 @@
                 return;
             }
 
-            // On successful login, hide login container and show loading screen
             const loginContainer = document.getElementById('loginContainer');
             const loadingScreen = document.getElementById('loadingScreen');
             loginContainer.style.animation = 'fadeOut 0.3s ease-out forwards';
@@ -1032,22 +850,11 @@
 
         // Initialize payment page after login
         function initializePaymentPage() {
-            document.getElementById('mainHeader').style.display = 'block';
-            document.getElementById('mainContainer').style.display = 'block';
-            document.getElementById('mainFooter').style.display = 'block';
-            window.scrollTo(0, 0); // Scroll to top
-            triggerHeaderAnimations();
+            const mainContainer = document.getElementById('mainContainer');
+            mainContainer.style.display = 'block';
+            window.scrollTo(0, 0);
             waitForImages();
             initWhatsAppFloatAnimation();
-            addButtonClickAnimation();
-        }
-
-        // Trigger header animations
-        function triggerHeaderAnimations() {
-            document.querySelector('.part1').classList.add('animated');
-            document.querySelector('.part2').classList.add('animated');
-            document.querySelector('header p').classList.add('animated');
-            document.querySelector('.slogan').classList.add('animated');
         }
 
         // Function to wait for card images to load before showing cards and hiding loading screen
@@ -1060,7 +867,8 @@
             if (images.length === 0) {
                 loadingScreen.style.display = 'none';
                 cards.forEach((card) => {
-                    card.classList.add('show-card');
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
                 });
                 return;
             }
@@ -1070,8 +878,10 @@
                     loadedImages++;
                     if (loadedImages === images.length) {
                         loadingScreen.style.display = 'none';
-                        cards.forEach((card) => {
-                            card.classList.add('show-card');
+                        cards.forEach((card, index) => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                            card.style.transitionDelay = `${index * 0.15}s`;
                         });
                     }
                 } else {
@@ -1079,8 +889,10 @@
                         loadedImages++;
                         if (loadedImages === images.length) {
                             loadingScreen.style.display = 'none';
-                            cards.forEach((card) => {
-                                card.classList.add('show-card');
+                            cards.forEach((card, index) => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                                card.style.transitionDelay = `${index * 0.15}s`;
                             });
                         }
                     });
@@ -1088,8 +900,10 @@
                         loadedImages++;
                         if (loadedImages === images.length) {
                             loadingScreen.style.display = 'none';
-                            cards.forEach((card) => {
-                                card.classList.add('show-card');
+                            cards.forEach((card, index) => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                                card.style.transitionDelay = `${index * 0.15}s`;
                             });
                         }
                     });
@@ -1104,7 +918,13 @@
 
             function showWhatsAppFloat() {
                 whatsappFloat.classList.add('show');
+                whatsappFloat.style.opacity = '1';
+                whatsappFloat.style.transform = 'translateY(0)';
             }
+
+            whatsappFloat.style.opacity = '0';
+            whatsappFloat.style.transform = 'translateY(20px)';
+            whatsappFloat.style.transition = 'opacity 0.5s, transform 0.5s';
 
             if (whatsappIcon.complete) {
                 showWhatsAppFloat();
@@ -1116,43 +936,11 @@
             setTimeout(showWhatsAppFloat, 5000);
         }
 
-        // Add click animation to buttons and WhatsApp float
-        function addButtonClickAnimation() {
-            const linkButtons = document.querySelectorAll('.links-container a');
-            const allButtons = document.querySelectorAll('.button-group .btn');
-            const whatsappFloat = document.getElementById('whatsappFloat');
-
-            linkButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    button.classList.add('clicked');
-                    setTimeout(() => {
-                        button.classList.remove('clicked');
-                    }, 300);
-                });
-            });
-
-            allButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    button.classList.add('clicked');
-                    setTimeout(() => {
-                        button.classList.remove('clicked');
-                    }, 300);
-                });
-            });
-
-            whatsappFloat.addEventListener('click', () => {
-                whatsappFloat.classList.add('clicked');
-                setTimeout(() => {
-                    whatsappFloat.classList.remove('clicked');
-                }, 300);
-            });
-        }
-
-        // Show full-screen image (loaded only when clicked)
+        // Show full-screen image
         function showImage(imageUrl) {
             const overlay = document.getElementById('imageOverlay');
             const overlayImage = document.getElementById('overlayImage');
-            overlayImage.src = imageUrl; // Set src only when clicked
+            overlayImage.src = imageUrl;
             overlay.classList.add('show');
         }
 
@@ -1160,30 +948,35 @@
         function closeImageOverlay() {
             const overlay = document.getElementById('imageOverlay');
             overlay.classList.remove('show');
-            document.getElementById('overlayImage').src = ''; // Clear src to free memory
+            document.getElementById('overlayImage').src = '';
         }
 
         // Copy account number to clipboard and show popup
         function copyAccountNumber(button, event) {
             navigator.clipboard.writeText('8175402043').then(() => {
                 const popup = document.createElement('div');
-                popup.className = 'popup-notification';
-                popup.innerHTML = document.createElement('i').className 
-                    ? '<i class="fas fa-check-circle"></i> Nomor rekening disalin'
-                    : '✔ Nomor rekening disalin';
+                popup.className = 'popup-notification text-white bg-blue-600 p-4 rounded-lg shadow-lg';
+                popup.innerHTML = '<i class="fas fa-check-circle"></i> Nomor rekening disalin';
                 document.body.appendChild(popup);
 
                 const rect = button.getBoundingClientRect();
                 const scrollY = window.scrollY;
                 const scrollX = window.scrollX;
                 const buttonCenterX = rect.left + rect.width / 2;
+                const popupHeight = 80;
                 const offsetY = 10;
 
+                popup.style.position = 'fixed';
                 popup.style.left = `${buttonCenterX + scrollX}px`;
-                popup.style.top = `${rect.top + scrollY - offsetY}px`;
-
+                popup.style.top = `${rect.top + scrollY - popupHeight - offsetY}px`;
+                popup.style.transform = 'translateX(-50%)';
+                popup.style.zIndex = '5000';
+                popup.style.animation = 'popIn 0.3s ease-out forwards';
                 setTimeout(() => {
-                    popup.remove();
+                    popup.style.animation = 'fadeOut 0.3s ease-out forwards';
+                    setTimeout(() => {
+                        popup.remove();
+                    }, 300);
                 }, 2500);
             }).catch(err => {
                 console.error('Gagal menyalin nomor rekening:', err);
@@ -1210,8 +1003,24 @@
             }, 300);
         }
 
-        // Dynamic year in footer
-        document.querySelector('footer p').textContent = `2025 Pusat WiFi Solo\nInternet Lancar dan Stabil`;
+        // Card animation on scroll
+        const cards = document.querySelectorAll('.card');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.style.transitionDelay = `${index * 0.15}s`;
+                }
+            });
+        }, { threshold: 0.3 });
+
+        cards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(80px)';
+            card.style.transition = 'opacity 0.7s, transform 0.7s';
+            observer.observe(card);
+        });
     </script>
 </body>
 </html>
