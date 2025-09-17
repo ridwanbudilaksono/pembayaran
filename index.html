@@ -645,10 +645,10 @@
                 <span class="text-2xl font-bold text-gray-800">Pusat WiFi <span class="text-blue-600">Solo</span></span>
             </div>
             <nav class="hidden md:flex space-x-10">
-                <a href="#home" class="text-gray-600 hover:text-blue-600 font-medium no-highlight">Beranda</a>
-                <a href="#about" class="text-gray-600 hover:text-blue-600 font-medium no-highlight">Panduan Layanan</a>
-                <a href="#pricing" class="text-gray-600 hover:text-blue-600 font-medium no-highlight">Pembayaran</a>
-                <a href="#contact" class="text-gray-600 hover:text-blue-600 font-medium no-highlight">Galeri</a>
+                <a href="https://pusatwifisolo.github.io/wifi/" class="text-gray-600 hover:text-blue-600 font-medium no-highlight">Beranda</a>
+                <a href="https://pusatwifisolo.github.io/panduan/" class="text-gray-600 hover:text-blue-600 font-medium no-highlight">Panduan Layanan</a>
+                <a href="https://pusatwifisolo.github.io/pembayaran/" class="text-gray-600 hover:text-blue-600 font-medium no-highlight">Pembayaran</a>
+                <a href="https://pusatwifisolo.github.io/galeri/" class="text-gray-600 hover:text-blue-600 font-medium no-highlight">Galeri</a>
             </nav>
             <div class="md:hidden">
                 <button id="menu-toggle" class="text-gray-600 no-highlight">
@@ -657,10 +657,10 @@
             </div>
         </div>
         <div id="mobile-menu" class="hidden md:hidden bg-white py-4 px-4">
-            <a href="#home" class="block py-2 text-gray-600 hover:text-blue-600 no-highlight">Beranda</a>
-            <a href="#about" class="block py-2 text-gray-600 hover:text-blue-600 no-highlight">Panduan Layanan</a>
-            <a href="#pricing" class="block py-2 text-gray-600 hover:text-blue-600 no-highlight">Pembayaran</a>
-            <a href="#contact" class="block py-2 text-gray-600 hover:text-blue-600 no-highlight">Galeri</a>
+            <a href="https://pusatwifisolo.github.io/wifi/" class="block py-2 text-gray-600 hover:text-blue-600 no-highlight">Beranda</a>
+            <a href="https://pusatwifisolo.github.io/panduan/" class="block py-2 text-gray-600 hover:text-blue-600 no-highlight">Panduan Layanan</a>
+            <a href="https://pusatwifisolo.github.io/pembayaran/" class="block py-2 text-gray-600 hover:text-blue-600 no-highlight">Pembayaran</a>
+            <a href="https://pusatwifisolo.github.io/galeri/" class="block py-2 text-gray-600 hover:text-blue-600 no-highlight">Galeri</a>
         </div>
     </header>
 
@@ -823,26 +823,6 @@
             if (!menu.contains(event.target) && !toggle.contains(event.target) && !menu.classList.contains('hidden')) {
                 menu.classList.add('hidden');
             }
-        });
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop,
-                        behavior: 'smooth'
-                    });
-                    const mobileMenu = document.getElementById('mobile-menu');
-                    if (!mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden');
-                    }
-                }
-            });
         });
 
         // Clear inputs on page load/refresh
