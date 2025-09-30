@@ -1,4 +1,43 @@
-<!DOCTYPE html>
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -20,90 +59,6 @@
         body {
             margin: 0;
             overflow-x: hidden;
-        }
-        
-        .login-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            z-index: 4000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            overflow-x: hidden;
-        }
-        
-        .login-form {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-            animation: fadeInUp 0.7s ease-out;
-        }
-        
-        .login-form h2 {
-            color: #1e3a8a;
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            font-weight: 700;
-        }
-        
-        .login-form input {
-            width: 100%;
-            padding: 12px;
-            margin: 0.75rem 0;
-            border: 1px solid #e5e7eb;
-            border-radius: 10px;
-            font-size: 1rem;
-            outline: none;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-        
-        .login-form input:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 8px rgba(59,130,246,0.3);
-        }
-        
-        .btn-primary {
-            background: linear-gradient(45deg, #1e3a8a, #3b82f6);
-            padding: 12px 0;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-            outline: none;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
-            color: white;
-            font-weight: 600;
-            display: inline-block;
-            text-align: center;
-        }
-        
-        .login-btn {
-            width: 200px;
-            padding: 14px 0;
-            font-size: 1.1rem;
-            margin: 0 auto;
-        }
-        
-        .btn-primary:hover {
-            background: linear-gradient(45deg, #3b82f6, #1e3a8a);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        .error-message {
-            display: none;
         }
         
         .loading-screen {
@@ -207,7 +162,7 @@
         }
         
         .hero .container {
-            padding: 200px 2rem 0;
+            padding: 250px 2rem 0;
             text-align: center;
             max-width: 1200px;
         }
@@ -337,7 +292,31 @@
         }
         
         .payment-methods {
-            margin-top: 180px;
+            margin-top: 90px;
+        }
+        
+        /* Enhanced Popup Styling */
+        .popup-notification {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(45deg, #3b82f6, #1e3a8a);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 8pelin20px rgba(0, 0, 0, 0.2);
+            font-size: 1rem;
+            font-weight: 500;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            animation: popIn 0.3s ease-out forwards;
+        }
+        
+        .popup-notification i {
+            font-size: 1.2rem;
+            color: #fff;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
         }
         
         /* Responsive adjustments */
@@ -346,14 +325,14 @@
                 background-position: 50% center;
             }
             .hero .container {
-                padding: 200px 2rem 0;
+                padding: 250px 2rem 0;
             }
             .payment-methods {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
                 gap: 1.25rem;
                 max-width: 1200px;
-                margin: 239px auto 2.5rem;
+                margin: 119.5px auto 2.5rem;
             }
             .card {
                 max-width: 450px;
@@ -388,15 +367,6 @@
             #payment-steps ul li {
                 font-size: 1rem;
             }
-            .login-form {
-                max-width: 400px;
-                padding: 2rem;
-            }
-            .login-btn {
-                width: 200px;
-                padding: 14px 0;
-                font-size: 1.1rem;
-            }
         }
         
         @media (max-width: 1023px) {
@@ -405,15 +375,15 @@
                 min-height: 100vh;
             }
             .hero .container {
-                padding: 0 1rem;
+                padding: 200px 1rem 0;
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
+                justify-content: flex-start;
                 align-items: center;
                 height: 100%;
             }
             .payment-methods {
-                margin-top: 180px;
+                margin-top: 90px;
                 display: flex;
                 flex-direction: column;
                 gap: 0.75rem;
@@ -453,23 +423,14 @@
             #payment-steps ul li {
                 font-size: 0.9rem;
             }
-            .login-form {
-                max-width: 360px;
-                padding: 1.5rem;
-            }
-            .login-btn {
-                width: 160px;
-                padding: 12px 0;
-                font-size: 1rem;
-            }
         }
         
         @media (max-width: 767px) {
             .hero .container {
-                padding: 0 1rem;
+                padding: 200px 1rem 0;
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
+                justify-content: flex-start;
                 align-items: center;
                 height: 100%;
             }
@@ -489,22 +450,6 @@
                 font-size: 1rem;
                 margin-bottom: 3rem;
             }
-            .login-form {
-                max-width: 360px;
-                padding: 1.5rem;
-            }
-            .login-form h2 {
-                font-size: 1.75rem;
-            }
-            .login-form input {
-                font-size: 0.9rem;
-                padding: 10px;
-            }
-            .login-btn {
-                width: 160px;
-                padding: 12px 0;
-                font-size: 1rem;
-            }
             .whatsapp-float {
                 width: 50px;
                 height: 50px;
@@ -516,7 +461,7 @@
                 height: 30px;
             }
             .payment-methods {
-                margin-top: 135px;
+                margin-top: 67.5px;
             }
             .card {
                 padding: 1.5rem;
@@ -531,10 +476,10 @@
         
         @media (max-width: 480px) {
             .hero .container {
-                padding: 0 0.75rem;
+                padding: 200px 0.75rem 0;
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
+                justify-content: flex-start;
                 align-items: center;
                 height: 100%;
             }
@@ -576,22 +521,6 @@
                 margin-top: 0.75rem;
                 width: 120px;
             }
-            .login-form {
-                max-width: 360px;
-                padding: 1.5rem;
-            }
-            .login-form h2 {
-                font-size: 1.5rem;
-            }
-            .login-form input {
-                font-size: 0.8rem;
-                padding: 8px;
-            }
-            .login-btn {
-                width: 140px;
-                padding: 10px 0;
-                font-size: 0.9rem;
-            }
             .whatsapp-float {
                 width: 40px;
                 height: 40px;
@@ -603,12 +532,32 @@
                 height: 25px;
             }
             .payment-methods {
-                margin-top: 100px;
+                margin-top: 50px;
             }
             #payment-steps {
                 margin-top: 8px;
                 margin-bottom: 40px;
             }
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #1e3a8a, #3b82f6);
+            padding: 12px 0;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            color: white;
+            font-weight: 600;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #3b82f6, #1e3a8a);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
         
         @keyframes fadeInUp {
@@ -664,20 +613,11 @@
         </div>
     </header>
 
-    <div class="login-container" id="loginContainer">
-        <div class="login-form">
-            <h2>Pusat WiFi Solo</h2>
-            <input type="text" id="customerId" placeholder="ID Pelanggan" maxlength="20" inputmode="numeric" onkeypress="handleEnterKey(event, 'login')">
-            <div class="btn-primary login-btn" onclick="handleLogin()">Masuk</div>
-            <div id="errorMessage" class="error-message"></div>
-        </div>
-    </div>
-
     <div class="loading-screen" id="loadingScreen">
         <div class="ring">Loading<span></span></div>
     </div>
 
-    <section class="hero" id="mainContainer" style="display: none;">
+    <section class="hero" id="mainContainer">
         <div class="container mx-auto max-width-1200px px-4 text-center">
             <h1 class="text-4xl md:text-6xl font-bold mb-4">Pembayaran</h1>
             <h2 class="text-2xl md:text-3xl font-bold mb-4">Pusat WiFi Solo</h2>
@@ -691,6 +631,7 @@
             <div class="card p-4 md:p-6 text-center">
                 <h3 class="text-lg md:text-2xl font-bold mb-4">TRANSFER</h3>
                 <img src="https://github.com/ridwanbudilaksono/wifi/blob/main/bcalogofit.png?raw=true" alt="BCA Logo" class="mx-auto mb-4">
+                <br>
                 <div class="transfer-details text-sm md:text-base mb-6 text-blue-800">
                     <span>BCA</span>
                     <span class="colon">:</span>
@@ -825,73 +766,12 @@
             }
         });
 
-        // Clear inputs on page load/refresh
+        // Initialize payment page on load
         document.addEventListener('DOMContentLoaded', function() {
-            clearInputsOnLoad();
+            initializePaymentPage();
         });
 
-        function clearInputsOnLoad() {
-            document.getElementById('customerId').value = '';
-        }
-
-        // Handle Enter key presses
-        function handleEnterKey(event, action) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                if (action === 'login') {
-                    handleLogin();
-                }
-            }
-        }
-
-        // Handle login form submission
-        function handleLogin() {
-            const customerId = document.getElementById('customerId').value;
-            const loginButton = document.querySelector('.login-form .btn-primary');
-            const loginForm = document.querySelector('.login-form');
-
-            loginButton.classList.add('clicked');
-            setTimeout(() => {
-                loginButton.classList.remove('clicked');
-            }, 300);
-
-            const isNumeric = /^\d{8}$/;
-            if (customerId === '' || !isNumeric.test(customerId)) {
-                try {
-                    const popup = document.createElement('div');
-                    popup.className = 'popup-notification text-white bg-blue-600 p-4 rounded-lg shadow-lg';
-                    popup.innerHTML = 'ID pelanggan tidak valid.';
-                    document.body.appendChild(popup);
-
-                    popup.style.position = 'fixed';
-                    popup.style.top = '50%';
-                    popup.style.left = '50%';
-                    popup.style.transform = 'translate(-50%, -50%)';
-                    popup.style.zIndex = '5000';
-                    popup.style.animation = 'popIn 0.3s ease-out forwards';
-                    setTimeout(() => {
-                        popup.style.animation = 'fadeOut 0.3s ease-out forwards';
-                        setTimeout(() => {
-                            popup.remove();
-                        }, 300);
-                    }, 2000);
-                } catch (err) {
-                    console.error('Failed to show popup:', err);
-                }
-                return;
-            }
-
-            const loginContainer = document.getElementById('loginContainer');
-            const loadingScreen = document.getElementById('loadingScreen');
-            loginContainer.style.animation = 'fadeOut 0.3s ease-out forwards';
-            setTimeout(() => {
-                loginContainer.style.display = 'none';
-                loadingScreen.style.display = 'flex';
-                initializePaymentPage();
-            }, 300);
-        }
-
-        // Initialize payment page after login
+        // Initialize payment page
         function initializePaymentPage() {
             const mainContainer = document.getElementById('mainContainer');
             mainContainer.style.display = 'block';
@@ -994,12 +874,12 @@
             document.getElementById('overlayImage').src = '';
         }
 
-        // Copy account number to clipboard and show popup
+        // Copy account number to clipboard and show enhanced popup
         function copyAccountNumber(button, event) {
             navigator.clipboard.writeText('8175402043').then(() => {
                 const popup = document.createElement('div');
-                popup.className = 'popup-notification text-white bg-blue-600 p-4 rounded-lg shadow-lg';
-                popup.innerHTML = 'Rekening telah disalin';
+                popup.className = 'popup-notification';
+                popup.innerHTML = '<i class="fas fa-check-circle"></i> Rekening telah disalin';
                 document.body.appendChild(popup);
 
                 popup.style.position = 'fixed';
@@ -1060,5 +940,3 @@
     </script>
 </body>
 </html>
-
-
