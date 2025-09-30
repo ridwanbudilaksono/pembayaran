@@ -1,43 +1,4 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -145,6 +106,26 @@
         header .container {
             max-width: 1200px;
             padding: 1rem 1rem;
+        }
+
+        /* Font sizes untuk elemen header */
+        .header-logo-text {
+            font-size: 24px; /* text-2xl dari Tailwind CSS */
+            font-weight: 700; /* font-bold */
+        }
+
+        .header-nav-links {
+            font-size: 16px; /* text-base dari Tailwind CSS */
+            font-weight: 500; /* font-medium */
+        }
+
+        .header-mobile-menu-links {
+            font-size: 16px; /* text-base dari Tailwind CSS */
+            font-weight: 400; /* default */
+        }
+
+        .header-menu-toggle-icon {
+            font-size: 24px; /* text-2xl dari Tailwind CSS */
         }
         
         .hero {
@@ -591,25 +572,25 @@
         <div class="container mx-auto max-width-1200px px-4 py-4 flex justify-between items-center">
             <div class="flex items-center">
                 <img src="https://github.com/pusatwifisolo/wifi/blob/main/logopwslow.png?raw=true" alt="Logo" class="w-12 h-12 mr-3">
-                <span class="text-2xl font-bold text-gray-800">Pusat WiFi <span class="text-blue-600">Solo</span></span>
+                <span class="header-logo-text text-gray-800">Pusat WiFi <span class="text-blue-600">Solo</span></span>
             </div>
             <nav class="hidden md:flex space-x-10">
-                <a href="https://pusatwifisolo.github.io/wifi/" class="text-gray-600 hover:text-blue-600 font-medium no-highlight">Beranda</a>
-                <a href="https://pusatwifisolo.github.io/panduan/" class="text-gray-600 hover:text-blue-600 font-medium no-highlight">Panduan Layanan</a>
-                <a href="https://pusatwifisolo.github.io/pembayaran/" class="text-gray-600 hover:text-blue-600 font-medium no-highlight">Pembayaran</a>
-                <a href="https://pusatwifisolo.github.io/galeri/" class="text-gray-600 hover:text-blue-600 font-medium no-highlight">Galeri</a>
+                <a href="https://pusatwifisolo.github.io/wifi/" class="header-nav-links text-gray-600 hover:text-blue-600 no-highlight">Beranda</a>
+                <a href="https://pusatwifisolo.github.io/panduan/" class="header-nav-links text-gray-600 hover:text-blue-600 no-highlight">Panduan Layanan</a>
+                <a href="https://pusatwifisolo.github.io/pembayaran/" class="header-nav-links text-gray-600 hover:text-blue-600 no-highlight">Pembayaran</a>
+                <a href="https://pusatwifisolo.github.io/galeri/" class="header-nav-links text-gray-600 hover:text-blue-600 no-highlight">Galeri</a>
             </nav>
             <div class="md:hidden">
                 <button id="menu-toggle" class="text-gray-600 no-highlight">
-                    <i class="fas fa-bars text-2xl"></i>
+                    <i class="fas fa-bars header-menu-toggle-icon"></i>
                 </button>
             </div>
         </div>
         <div id="mobile-menu" class="hidden md:hidden bg-white py-4 px-4">
-            <a href="https://pusatwifisolo.github.io/wifi/" class="block py-2 text-gray-600 hover:text-blue-600 no-highlight">Beranda</a>
-            <a href="https://pusatwifisolo.github.io/panduan/" class="block py-2 text-gray-600 hover:text-blue-600 no-highlight">Panduan Layanan</a>
-            <a href="https://pusatwifisolo.github.io/pembayaran/" class="block py-2 text-gray-600 hover:text-blue-600 no-highlight">Pembayaran</a>
-            <a href="https://pusatwifisolo.github.io/galeri/" class="block py-2 text-gray-600 hover:text-blue-600 no-highlight">Galeri</a>
+            <a href="https://pusatwifisolo.github.io/wifi/" class="header-mobile-menu-links block py-2 text-gray-600 hover:text-blue-600 no-highlight">Beranda</a>
+            <a href="https://pusatwifisolo.github.io/panduan/" class="header-mobile-menu-links block py-2 text-gray-600 hover:text-blue-600 no-highlight">Panduan Layanan</a>
+            <a href="https://pusatwifisolo.github.io/pembayaran/" class="header-mobile-menu-links block py-2 text-gray-600 hover:text-blue-600 no-highlight">Pembayaran</a>
+            <a href="https://pusatwifisolo.github.io/galeri/" class="header-mobile-menu-links block py-2 text-gray-600 hover:text-blue-600 no-highlight">Galeri</a>
         </div>
     </header>
 
@@ -750,7 +731,46 @@
         </div>
     </footer>
 
-    <script>
+    <script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+
         // Mobile menu toggle
         document.getElementById('menu-toggle').addEventListener('click', function() {
             const menu = document.getElementById('mobile-menu');
